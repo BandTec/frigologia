@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <title>Frigologia</title>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <div class="name-logo">
+                <img src="img/frigologo.png" alt="Logo">
+                <h1>Frigologia</h1>
+            </div>
+            <div class="header-nav">
+                <ul>
+                    <li>
+                        <a href="index.html"><b>Home</b></a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+
+
+
+    </header>
+
+    <style>
+        .simulador {
+
+            font-family: 'Lexend Deca', sans-serif;
+        }
+    </style>
+
+
+    <div class="calfundo1">
+        <div class="calfundo2">
+            <img class="logo2" src="img/frigologo.png" alt="Logo">
+            <h3 class="titulo">Simulador financeiro</h3>
+        </div>
+        <div class="simulador-financeiro">
+
+                <b class="pergunta">Valor investido em carnes:</b><br>
+                <input class="input" type="text" placeholder="Valor investido em carnes" id="valora"><br><br>
+                <b class="pergunta">Quantidade de quilogramas(Kg) perdidos:</b><br>
+                <input class="input" type="number" placeholder="Quilogramas perdidos" id="valorb"><br><br>
+                <b class="pergunta">Custo por quilograma(Kg) perdido:</b><br>
+                <input class="input" type="number" placeholder="Custo por quilogramas" id="valorc"><br><br>
+    
+                <button class="btn" onclick="calcular()">Calcular</button>
+    
+        </div>
+
+        <div class="resultado" id="div_conta"></div>
+    </div>
+
+
+    
+
+    <footer id="footer">
+        <div class="container">
+            <div class="information">
+                <h3>Frigologia</h3>
+                <p>Mesclando tecnologia e frigoríficos para melhor qualidade das carnes.</p>
+            </div>
+
+            <form>
+                <h3>Entre em Contato!</h3>
+                <div>
+                    <!-- <label for="id_name">Insira seu nome:</label> -->
+                    <input type="text" id="id_name" autocapitalize="sentences" placeholder="Insira seu nome:" />
+                </div>
+                <div>
+                    <!-- <label for="id_email">Insira seu e-mail:</label> -->
+                    <input type="email" id="id_email" autocapitalize="none" placeholder="Insira seu e-mail:" />
+                </div>
+                <div>
+                    <!-- <label for="id_msg">Digite sua dúvida ou sujestão:</label> -->
+                    <textarea id="id_msg" cols="1" rows="5" autocapitalize="sentences"
+                        placeholder="Insira sua dúvida ou sugestão:"></textarea>
+                </div>
+                <div>
+                    <button class="btn-reverse">Enviar</button>
+                </div>
+            </form>
+            <div class="copyright">
+                <h5>© Frigologia todos os direitos reservados.</h5>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
+
+<script>
+
+    window.onload = changeTeam();
+    function calcular() {
+        var a = Number(valora.value);
+        var b = Number(valorb.value);
+        var c = Number(valorc.value);
+
+        div_conta.innerHTML = '';
+
+        var valorperdas = (b * c);
+
+        div_conta.innerHTML += `<br>Multiplicando os pedaços perdidos pelo custo por quilograma,
+        você perdeu <b>R$${valorperdas}</b>!`;
+
+        var perdastotais = a - valorperdas;
+
+        div_conta.innerHTML += `<br> Em outras palavras, você investiu realmente <b>R$${perdastotais}.</b>`;
+
+        var porcentagem1 = valorperdas * 100;
+        var porcentagem2 = porcentagem1 / a;
+
+        div_conta.innerHTML += `<br>Isto significa que você perdeu <b>${porcentagem2.toFixed(2)}%</b> do seu investimento
+        total<br>`;
+
+        var nossaempresa = valorperdas * 0.2;
+
+        div_conta.innerHTML += `<br> Você não acha que já perdeu muito por culpa do mau refrigeramento
+        das carnes? <b>Nós acreditamos que sim!</b><br> Por isso, nós da Frigologia, oferecemos um serviço onde 
+        temos como <b><u>OBJETIVO</u></b> fazer com que 80% destas perdas não existam!<br> O valor que você 
+        perderia usando nosso produto, seria: <b>R$${nossaempresa.toFixed(2)}</b>`;
+    }
+
+
+</script>

@@ -1,0 +1,369 @@
+/* Aqui para baixa é estilo do formulario */
+.form {
+    font-family: 'Open Sans Condensed', arial, sans;
+    width: 370px;
+    padding: 30px;
+    background: #fff;
+    margin: 10px auto;
+
+    /* Sombras do popup */
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+}
+
+/* Alterando h2 do form */
+.form h2 {
+    background: #333640;
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 100;
+    padding: 20px;
+    margin: -30px -30px 30px -30px;
+}
+
+/* Estilização dos input do form */
+.form input {
+    display: inline;
+    width: 98%;
+    padding: 7px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    font: 16px Arial, Helvetica, sans-serif;
+    height: 45px;
+}
+
+/* Redimencionando a img do formulario */
+#img {
+    height: 300px;
+    width: 400px;
+    margin-top: -30px;
+    margin-right: -30px;
+
+}
+
+/* Estilo dos botões */
+
+#inp_login {
+    width: 350px;
+    background-color: #30838C;
+    display: inline-block;
+    color: #FFFFFF;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-left: 15px;
+}
+#inp_cadastro{
+    width: 350px;
+    background-color: #8C2B3D;
+    display: inline-block;
+    color: #FFFFFF;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-left: 15px;
+}
+
+
+/* :houver = ação que se executa ao passar o mouse por cima, nesse caso trocar background */
+#inp_login:hover {
+    background-color: #34CACA;
+}
+#inp_cadastro:hover{
+    background-color: #be3d54;
+;
+}
+
+
+body {
+    background-color: #8C2B3D;
+}
+
+.inp_popup{
+    text-align: center;
+    
+}
+
+/* CSS do Cadastro */
+
+/* Especificações do popup */
+.popup {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    opacity: 0;
+    transition: opacity 500ms;
+}
+
+/* Aqui para baixa é estilo do formulario */
+.popup .form {
+    font-family: 'Open Sans Condensed', arial, sans;
+    width: 800px;
+    padding: 30px;
+    background: #fff;
+    margin: 10px auto;
+
+    /* Sombras do popup */
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+}
+
+/* Alterando h2 do form */
+.popup .form h2 {
+    background: #333640;
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 100;
+    padding: 20px;
+    margin: -30px -30px 30px -30px;
+}
+
+/* Estilização dos input do form */
+.popup .form input {
+    display: inline;
+    width: 50%;
+    padding: 7px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    font: 16px Arial, Helvetica, sans-serif;
+    height: 45px;
+}
+
+/* Redimencionando a img do formulario */
+.popup .form #div-img #img {
+    height: 300px;
+    width: 400px;
+    float: right;
+}
+
+/* Estilo dos botões */
+.popup .form form #cancelar {
+    background-color: #8C2B3D;
+    display: inline-block;
+    color: #FFFFFF;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.popup .form form #cadastrar {
+    background-color: #30838C;
+    display: inline-block;
+    color: #FFFFFF;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+/* :houver = ação que se executa ao passar o mouse por cima, nesse caso trocar background */
+.popup .form form #cadastrar:hover {
+    background-color: #34CACA;
+}
+
+.popup .form form #cancelar:hover {
+    background-color: #be3d54;
+    
+}
+/* Aqui para baixa é estilo do formulario */
+.form {
+    font-family: 'Open Sans Condensed', arial, sans;
+    width: 370px;
+    padding: 30px;
+    background: #fff;
+    margin: 10px auto;
+
+    /* Sombras do popup */
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+}
+
+/* Alterando h2 do form */
+.form h2 {
+    background: #333640;
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 100;
+    padding: 20px;
+    margin: -30px -30px 30px -30px;
+}
+
+/* Estilização dos input do form */
+.form input {
+    display: inline;
+    width: 98%;
+    padding: 7px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    font: 16px Arial, Helvetica, sans-serif;
+    height: 45px;
+}
+
+/* Redimencionando a img do formulario */
+#img {
+    height: 300px;
+    width: 400px;
+    margin-top: -30px;
+    margin-right: -30px;
+
+}
+
+/* Estilo dos botões */
+
+#inp_login {
+    width: 350px;
+    background-color: #30838C;
+    display: inline-block;
+    color: #FFFFFF;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-left: 15px;
+}
+#inp_cadastro{
+    width: 350px;
+    background-color: #8C2B3D;
+    display: inline-block;
+    color: #FFFFFF;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-left: 15px;
+}
+
+
+/* :houver = ação que se executa ao passar o mouse por cima, nesse caso trocar background */
+#inp_login:hover {
+    background-color: #34CACA;
+}
+#inp_cadastro:hover{
+    background-color: #be3d54;
+;
+}
+
+
+body {
+    background-color: #8C2B3D;
+}
+
+.inp_popup{
+    text-align: center;
+    
+}
+
+/* CSS do Cadastro */
+
+/* Especificações do popup */
+.popup {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    opacity: 0;
+    transition: opacity 500ms;
+}
+
+/* Aqui para baixa é estilo do formulario */
+.popup .form {
+    font-family: 'Open Sans Condensed', arial, sans;
+    width: 800px;
+    padding: 30px;
+    background: #fff;
+    margin: 10px auto;
+
+    /* Sombras do popup */
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+}
+
+/* Alterando h2 do form */
+.popup .form h2 {
+    background: #333640;
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 100;
+    padding: 20px;
+    margin: -30px -30px 30px -30px;
+}
+
+/* Estilização dos input do form */
+.popup .form input {
+    display: inline;
+    width: 50%;
+    padding: 7px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    font: 16px Arial, Helvetica, sans-serif;
+    height: 45px;
+}
+
+/* Redimencionando a img do formulario */
+.popup .form #div-img #img {
+    height: 300px;
+    width: 400px;
+    float: right;
+}
+
+/* Estilo dos botões */
+.popup .form form #cancelar {
+    background-color: #8C2B3D;
+    display: inline-block;
+    color: #FFFFFF;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.popup .form form #cadastrar {
+    background-color: #30838C;
+    display: inline-block;
+    color: #FFFFFF;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+/* :houver = ação que se executa ao passar o mouse por cima, nesse caso trocar background */
+.popup .form form #cadastrar:hover {
+    background-color: #34CACA;
+}
+
+.popup .form form #cancelar:hover {
+    background-color: #be3d54;
+}

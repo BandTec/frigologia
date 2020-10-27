@@ -1,0 +1,608 @@
+/* Global */
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: roboto;
+    outline: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+div.container {
+    width: 85%;
+    margin: auto;
+}
+
+.btn-init {
+    width: 100px;
+    height: 30px;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: 0.3s;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    background-color: #962d3e;
+}
+
+.btn-init:hover {
+    border-radius: 7px;
+    color: #fff;
+}
+
+.btn-reverse {
+    width: 100px;
+    height: 30px;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: 0.3s;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    border: 1px solid #fff;
+    background-color: transparent;
+}
+
+.btn-reverse:hover {
+    border-radius: 7px;
+    color: #fff;
+}
+
+/* End Global */
+
+
+
+/* header */
+
+header {
+    top: 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    position: fixed;
+    color: #fff;
+    background-color: #962d3e;
+}
+
+header div.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /*Mobile colocar center*/
+    flex-wrap: wrap;
+    align-self: center;
+}
+
+header div.container div.name-logo {
+    display: flex;
+    align-items: center;
+    float: left;
+}
+
+header div.container div.name-logo h1 {
+    margin-left: -10px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+header div.container div.name-logo img{
+    width: 100px;
+
+}
+
+header div.container div.header-nav {
+    float: right;
+}
+
+header div.container div.header-nav ul li {
+    display: inline-block;
+}
+
+header div.container div.header-nav ul li a {
+    margin-left: 10px;
+    font-size: 14px;
+    padding: 5px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+}
+
+/* End header */
+
+/* Section start */
+
+section.start {
+    display: flex;
+    height: 100vh;
+    display: flex;
+    background-image: url('../img/showcase.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+section.start div.container {
+    text-align: center;
+    color: #fff;
+    /* color: #343642; */
+}
+
+section.start div.container img {
+    width: 40%;
+}
+
+section.start div.container h2 {
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+section.start div.container button {
+    margin-top: 20px;
+}
+/* End section start */
+
+/* Section Abaout */
+
+section.about {
+    display: flex;
+}
+
+section.about div.container {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+section.about div.container h2 {
+    text-align: center;
+}
+
+section.about div.container div.logo-and-history {
+    display: flex;
+    margin-top: 25px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+section.about div.container div.logo-and-history div.history {
+    width: 60%;
+    align-self: center;
+    min-width: 305px;
+    text-align: justify;
+}
+
+section.about div.container div.logo-and-history img {
+    width: 300px;
+}
+
+section.about div.container div.values-of-work {
+    width: 100%;
+    margin-top: 25px;
+    display: flex;
+    align-self: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+section.about div.container div.values-of-work div.details-values {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+section.about div.container div.values-of-work div.details-values div.icons {
+    height: 100px;
+}
+
+section.about div.container div.values-of-work div.details-values div.cont {
+    display: flex;
+    flex: 1;
+    padding-top: 15px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+section.about div.container div.values-of-work div.details-values div.cont h3 {
+    margin-bottom: 10px;
+}
+
+section.about div.container div.values-of-work div.details-values div.icons img {
+    width: 100px;
+}
+/* End Section About */
+
+/* Product */
+
+section.product {
+    background-color: #962d3e;
+    color: #fff;
+}
+
+section.product div.container {
+    display: flex;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    /* background-color: aqua; */
+}
+
+section.product div.container div.imgs-product {
+    display: grid;
+    max-width: 420px;
+    grid-template-columns: 1fr 150px;
+    grid-gap: 10px;
+}
+
+section.product div.container div.imgs-product img {
+    width: 270px;
+    border-radius: 3px;
+}
+
+section.product div.container div.imgs-product div.sidebar img {
+    width: 140px;
+    height: 75px;
+} 
+
+section.product div.container div.details-product {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    /* background-color: rebeccapurple; */
+}
+
+section.product div.container div.details-product h3 {
+    font-weight: 400;
+}
+
+section.product div.container div.details-product p {
+    font-weight: 300;
+}
+section.product div.container div.details-product a {
+    align-self: flex-end;
+}
+
+
+/* End Product */
+
+/* Section Team */
+
+section.team {
+    background-color: #fff;
+}
+
+section.team div.container {
+    text-align: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    color: #343642;
+}
+
+section.team div.container div.change-team {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+section.team div.container div.change-team select {
+    margin-left: 7px;
+    width: 100px;
+    height: 30px;
+    padding-left: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #343642;
+    color: #343642;
+    background-color: transparent;
+}
+
+section.team div.container div.change-team select option {
+    color: #343642;
+}
+
+section.team div.container div.details-team {
+    display: flex;
+    flex: 1;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    max-width: 1225px;
+    margin: 0 auto;
+}
+
+
+section.team div.container div.details-team div.team-member {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    max-width: 250px;
+    height: 340px;
+}
+
+section.team div.container div.details-team > div.team-member:nth-child(n +5) {
+    margin-top: 15px;
+}
+
+section.team div.container div.details-team img {
+    max-width: 90%;
+    display: block;
+    align-self: center;
+    border-radius: 5px;
+}
+
+/* End Section Team */
+
+/* Footer */
+
+footer {
+    padding-top: 50px;
+    color: #fff;
+    background-color: #962d3e;
+    bottom: 0;
+}
+
+footer div.container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+footer div.container div.information {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+footer div.container form h3,
+footer div.container div.information h3  {
+    width: 100%;
+    font-weight: 400;
+}
+
+footer div.container div.information p {
+    font-weight: 300;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+footer div.container form {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+footer div.container form div {
+    width: 49.5%;
+    margin-top: 7px;
+    display: flex;
+}
+
+footer div.container form div:nth-child(4) {
+    width: 100%;
+}
+
+footer div.container form div:last-child {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+footer div.container form div input {
+    width: 100%;
+    height: 30px;
+    display: block;
+    margin-top: 3px;
+    padding-left: 10px;
+    border-radius: 3px;
+    border: none;
+    background-color: #f8f8ff;
+}
+
+footer div.container form div textarea {
+    width: 100%;
+    height: 100px;
+    margin-top: 3px;
+    padding-left: 10px;
+    padding-top: 5px;
+    resize: none;
+    border-radius: 3px;
+    border: none;
+    background-color: #f8f8ff;
+}
+
+footer div.container form div button {
+    align-self: flex-end;
+}
+
+footer .copyright {
+    width: 100%;
+    height: 50px;
+}
+/* End Footer */
+
+
+
+/* MOBILE */
+
+
+
+@media only screen and (max-width: 900px) {
+    
+    /* Start */
+    section.start div.container img {
+        width: 50%;
+    }
+    /* Fim Start */
+
+    /* About */
+    section.about div.container div.logo-and-history img {
+        margin-bottom: 15px;
+    }
+
+    section.about div.container div.values-of-work div.details-values:last-child {
+        margin-top: 20px;
+    }
+    /* Fim About */
+
+    /* Product */
+
+    section.product div.container div.imgs-product {
+        max-width: 100%;
+    }
+
+    section.product div.container div.imgs-product img {
+        width: 200px;
+    }
+
+    section.product div.container div.imgs-product div.sidebar {
+        width: 95px;
+    }
+
+    section.product div.container div.imgs-product div.sidebar img {
+        width: 100%;
+        height: 55px;
+    }
+
+    section.product div.container div.details-product {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    section.product div.container div.details-product p {
+        margin-bottom: 15px;
+    }
+
+    /* End Product */
+
+
+    /* footer */
+    footer div.container form {
+        margin-top: 25px;
+        width: 100%;
+    }
+
+    footer div.container form div button {
+        margin-bottom: 15px;
+    }
+    /* Fim footer */
+}
+
+.calfundo1 {
+
+
+    margin: 0 auto;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    width: 850px;
+    height: 500px;
+    
+
+    background: #962D3E;
+    border-radius: 10px;
+
+}
+
+.calfundo2 {
+    
+    margin: 0 auto;
+    width: 850px;
+    height: 100px;
+    
+    background: #343642;
+    border-radius: 10px;
+
+}
+
+
+
+.simulador-financeiro {
+
+    margin: 0 auto;
+    width: 300px;
+    padding-top:  20px;
+    color: white;
+    text-align: center;
+}
+
+.titulo {
+  
+        margin: 0;
+        padding: 0;
+        float: right;
+        font-size: 50px;
+        text-align: center;
+        padding-right: 140px;
+        padding-top: 20px;
+        color: white;
+
+
+}
+
+.resultado {
+
+    
+    font-size: 14px;
+    left: 280px;
+    padding-top: 8px;
+    text-align: center;
+    color: white;
+
+}
+
+
+.input {
+
+    width: 200px;
+    border-radius: 6px;
+    border-style: none;
+    height: 25px;
+    padding-left: 5px;
+    
+}
+
+.btn {
+
+    width: 100px;
+    height: 23px;
+    background-color: #343642;
+    color: white;
+    border-style: hidden;
+    border-radius: 6px;
+}
+
+.logo2 {
+
+    padding-top: 0px;
+    padding-left: 110px ;
+    height: 95px;
+    
+}
+
+.btn2 {
+
+    padding-top: 100px;
+    padding-left: 80px;
+
+}
+
+.btnsimulador {
+
+    width: 200px;
+    height: 50px;
+    background-color: transparent;
+    color: white;
+    border-style: none;
+    border-radius: 10px;
+
+}

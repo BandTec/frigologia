@@ -1,0 +1,67 @@
+
+
+#container{
+    height:370px;
+   
+}
+
+#textoInicio{
+    margin-top:180px;
+    padding-top: 20px; 
+    height: auto;
+    width:400px;
+    margin-left: 150px;
+}
+#logo{
+    float:right;
+    margin-right:60px;
+}
+#solucao{
+    background-color: white;
+    height: 600px;
+    margin-top:210px;        
+}
+#lm35{
+    background-color: white;
+    height: 600px;
+}
+#imgLogo{
+    width: 350px;
+
+}
+#imgDesenho{
+    width:90%;
+    margin-left: 50px;
+}
+#lm35Texto{
+    width:30%;
+    float:right;
+    margin-right: 100px;
+}
+#lm35Lista li{
+    border: 1px solid black;
+    width:400px;
+    height: 40px;
+    text-align: center;
+    margin-top:10px;
+    list-style-type: none;
+    padding-top: 10px;
+    margin-left: 100px;
+}   
+#lm35Img{
+    height:210px;
+    margin-left: 50px;
+}
+
+#h1{
+    text-align:center;
+    padding-bottom: 50px;
+    margin-left: -10px;
+    font-size: 24px;
+    font-weight: 500;
+    
+}
+
+/* Section styles */
+
+

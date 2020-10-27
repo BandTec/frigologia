@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Frigologia</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="name-logo">
+                <img src="img/frigologo.png" alt="Logo">
+                <h1>Frigologia</h1>
+            </div>
+            <div class="header-nav">
+                <ul>
+                    <li>
+                        <a href="#home">Home</a>
+                    </li>
+                    <li>
+                        <a href="#about">Sobre</a>
+                    </li>
+                    <li>
+                        <a href="#product">Produto</a>
+                    </li>
+                    <li>
+                        <a href="#team">Equipe</a>
+                    </li>
+                    <li>
+                        <a href="#footer">Contato</a>
+                    </li>
+                    <li>
+                        <a href="tela_login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="start">
+        <div class="container">
+            <img src="img/frigologo.png" alt="Logo Frigologia">
+            <h2>BEM VINDOS A FRIGOLOGIA</h2>
+            <p>Mesclando tecnologia e frigoríficos para melhor qualidade das carnes</p>
+            
+            <a href="#about"><button class="btn-init">Começar</button></a>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2>Sobre nós</h2>
+            <div class="logo-and-history">
+                <img src="img/logo-frigologia.jpeg" alt="Logo Frigologia">
+                <div class="history">
+                    <p>Um certo dia pensamos: por que não unir o melhor de dois mundos? Então da mente de 7 jovens desenvolvedores nasce a Frigologia - O conceito de mesclar tecnologia de ponta com o universo das carnes. O pensamento criativo nos move em nossas soluções, a eficiência nos norteia em nossa trajetória e a qualidade é o nosso objetivo, com esses valores em nossas veias seremos melhores hoje do que fomos ontem e claro, pensando sempre em que podemos melhorar amanhã, tudo para garantirmos aos nossos parceiros uma experiência única, diferenciada e que supere as expectativas - inclusive as nossas próprias. Acreditamos que sempre é possível fazer mais e melhor, unindo conhecimento e paixão nossa meta é nos tornarmos referência nacional em controle de refrigeração para o mercado frigorífico varejista.</p>
+                </div>
+            </div>
+            <div class="values-of-work">
+                <div class="details-values">
+                    <div class="icons">
+                        <img src="img/icon-missao.png" alt="Missão">
+                    </div>
+                    <div class="cont">
+                        <h3>Missão</h3>
+                        <p>Ofererer soluções criativas no mercado frigorífico que atendam às necessidades de nossos parceiros superando suas expectativas, combatendo os problemas de temperatura e gerando a satisfação de seus consumidores.</p>
+                    </div>
+                </div>
+                <div class="details-values">
+                    <div class="icons">
+                        <img src="img/icon-visao.png" alt="Missão">
+                    </div>
+                    <div class="cont">
+                        <h3>Visão</h3>
+                        <p>Sermos referência nacional no controle de refrigeração de carnes atuando de forma sustentável e visando a redução do desperdício de alimentos.</p>
+                    </div>
+                </div>
+                <div class="details-values">
+                    <div class="icons">
+                        <img src="img/icon-valores-no-background.png" alt="Missão">
+                    </div>
+                    <div class="cont">
+                        <h3>Valores</h3>
+                        <p>Criatividade: Somos norteados pelo pensamento criativo para criar soluções criativas.
+                            Eficiência: Excelência máxima, esforço mínimo.
+                            Qualidade: Mantendo a fidelidade e a satisfação do cliente sempre em primeiro lugar.</p>
+                    </div>
+                </div>           
+            </div>
+        </div>
+    </section>
+
+    <section class="product" id="product">
+        <div class="container">
+            <div class="imgs-product">
+                <img src="img/product/logo.png">
+                <div class="sidebar">
+                    <img src="img/product/grafico.png">
+                    <img src="img/product/grafico.png">
+                </div>
+        
+            </div>
+            <div class="details-product">
+                <h3>Nosso produto</h3>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur 
+                    adipisicing elit. Quidem, pariatur tempora illum
+                    ipsa ex quae facere sed nisi sapiente autem 
+                    nobis magni repellendus commodi dolorem dicta 
+                    accusamus. Nobis, quis ipsa.
+                </p>
+                <a href="produto.html"><button class="btn-reverse">Saiba mais</button></a>
+            </div>
+        </div>
+    </section>
+
+    <section class="team" id="team">
+        <div class="container">
+            <div class="change-team">
+                <h2>Equipe -</h2>
+                <select onchange="changeTeam()" id="sprint_team">
+                    <option value="2">Sprint 2</option>
+                    <option value="1">Sprint 1</option>
+                </select>
+            </div>
+            <div class="details-team" id="details-team">
+                <div class="team-member" id="member1">
+                    <img src="" id="img_member1">
+                    <p id="name_member1"></p>
+                </div>
+                <div class="team-member" id="member2">
+                    <img src="" id="img_member2">
+                    <p id="name_member2"></p>
+                </div>
+                <div class="team-member" id="member3">
+                    <img src="" id="img_member3">
+                    <p id="name_member3"></p>
+                </div>
+                <div class="team-member" id="member4">
+                    <img src="" id="img_member4">
+                    <p id="name_member4"></p>
+                </div>
+                <div class="team-member" id="member5">
+                    <img src="" id="img_member5">
+                    <p id="name_member5"></p>
+                </div>
+                <div class="team-member" id="member6">
+                    <img src="" id="img_member6">
+                    <p id="name_member6"></p>
+                </div>
+                <div class="team-member" id="member7">
+                    <img src="" id="img_member7">
+                    <p id="name_member7"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="container">
+            <div class="information">
+                <h3>Frigologia</h3>
+                <p>Mesclando tecnologia e frigoríficos para melhor qualidade das carnes.</p>
+            </div>
+            
+            <form>
+                <h3>Entre em Contato!</h3>
+                <div>
+                    <!-- <label for="id_name">Insira seu nome:</label> -->
+                    <input 
+                        type="text" 
+                        id="id_name" 
+                        autocapitalize="sentences"
+                        placeholder="Insira seu nome:"
+                    />
+                </div>
+                <div>
+                    <!-- <label for="id_email">Insira seu e-mail:</label> -->
+                    <input 
+                        type="email" 
+                        id="id_email"  
+                        autocapitalize="none"
+                        placeholder="Insira seu e-mail:"
+                    />
+                </div>
+                <div>
+                    <!-- <label for="id_msg">Digite sua dúvida ou sujestão:</label> -->
+                    <textarea 
+                        id="id_msg" 
+                        cols="1" 
+                        rows="5"  
+                        autocapitalize="sentences"
+                        placeholder="Insira sua dúvida ou sugestão:"
+                    ></textarea>
+                </div>
+                <div>
+                    <button class="btn-reverse">Enviar</button>
+                </div>
+            </form>
+            <div class="copyright">
+                <h5>© Frigologia todos os direitos reservados.</h5>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+
+<script src="js/script.js"></script>

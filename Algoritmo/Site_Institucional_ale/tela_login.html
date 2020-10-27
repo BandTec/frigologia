@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login</title>
+	<link rel="stylesheet" href="css/styleCadastroLogin.css">
+</head>
+
+<body>
+
+	<div id="form" class="form">
+
+		<h2>Login</h2>
+		<div id="div-img"><img src="img/frigologo.png" id="img" alt style="width: 381px;"></div>
+		<form>
+
+			<input id="usuario" type="text" placeholder="Email" />
+			<input id="senha" type="password" placeholder="Senha" />
+			<button type="button" onclick="login()" id="inp_login">Login</button>
+
+		</form>
+		<br>
+		<!--ações para o popup -->
+		<!-- <a href="javascript: abrir();">Cadastro</a><br> -->
+
+		<div class="inp_popup">
+		<button onclick="abrir()" id="inp_cadastro">Crie uma conta!</button>
+		</div>
+		<br>
+	</div>
+
+	<!-- A div popup fica 'invisivel até chamar a ação' -->
+	<div id="popup" class="popup">
+		<div class="form">
+
+			<h2>Cadastro</h2>
+			<div id="div-img"><img src="img/frigologo.png" id="img" alt=""></div>
+			<form>
+				<input type="text" placeholder="Nome" />
+				<input type="text" placeholder="Local" />
+				<input type="email" placeholder="Email" />
+				<input type="password" placeholder="Senha" />
+				<input type="password" placeholder="Repetir senha" />
+				<input type="button" onclick="cadastro()" id="cadastrar" value="Cadastrar" />
+				<input type="button" onclick="fechar()" id="cancelar" value="Cancelar" />
+
+			</form>
+		
+		</div>
+	</div>
+
+
+</body>
+
+</html>	
+<script src="js/scriptCadastroLogin.js">
+
+</script>
