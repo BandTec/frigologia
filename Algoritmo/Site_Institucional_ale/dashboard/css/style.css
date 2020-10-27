@@ -15,6 +15,9 @@ div.container {
     display: flex;
 }
 
+a{
+    text-decoration: none;
+}
 /* end global */
 
 /* header */
@@ -40,6 +43,10 @@ header div.container div.logo img {
 header div.container nav {
     width: 140px;
     /* background-color: coral; */
+}
+
+header div.container nav a {
+    color: #fff;
 }
 
 header div.container nav ul {
