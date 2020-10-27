@@ -1,7 +1,7 @@
 function login() {
 
     if (usuario.value == 'frigologia@gmail.com' && senha.value == 'frigologia') {
-        window.location.href = "dashboard/index.html";
+        window.location.href = "Dashboard/index.html";
 
     } else {
         alert("Senha ou usuário incorreto!");

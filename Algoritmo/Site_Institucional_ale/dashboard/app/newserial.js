@@ -1,4 +1,3 @@
-// Arquivo de construção do arduino e armazenamento de dados do arduino
 const sensors = require('./sensors')
 
 class NewArduino {
@@ -39,4 +38,4 @@ class NewArduino {
 const serial = new NewArduino();
 serial.SetConnection();
 
-module.exports.ArduinoData = {List: serial.List, ListHour:serial.ListHour} 
+module.exports.ArduinoDataTemp = {List: serial.List, ListHour:serial.ListHour} 
