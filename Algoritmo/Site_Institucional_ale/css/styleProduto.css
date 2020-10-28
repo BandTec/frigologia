@@ -6,7 +6,7 @@
 }
 
 #textoInicio{
-    margin-top:180px;
+    margin-top: 250px;
     padding-top: 20px; 
     height: auto;
     width:400px;
@@ -19,11 +19,11 @@
 #solucao{
     background-color: white;
     height: 600px;
-    margin-top:210px;        
+    margin-top:150px;        
 }
 #lm35{
     background-color: white;
-    height: 600px;
+    height: 550px;
 }
 #imgLogo{
     width: 350px;

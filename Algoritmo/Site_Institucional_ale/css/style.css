@@ -498,11 +498,13 @@ footer .copyright {
     /* Fim footer */
 }
 
+/* End mobile */
+
 .calfundo1 {
 
 
     margin: 0 auto;
-    margin-top: 100px;
+    margin-top: 0px;
     margin-bottom: 50px;
     width: 850px;
     height: 500px;
