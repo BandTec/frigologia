@@ -30,5 +30,11 @@ function fechar() {
     }, 200);
 }
 function cadastro() {
+   form.style.display = '1';
+    popup.style.opacity = '0';
+    setTimeout(() => {
+        popup.style.display = 'none';
+        form.style.display = 'block';
+    }, 200);
     alert("usuario cadastrado com sucesso !!");
 }
