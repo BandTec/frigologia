@@ -21,6 +21,6 @@ Nosso time é composto por 4 integrantes criativos e eficiêntes que unem força
 
 ![](https://github.com/BandTec/frigologia/blob/main/Imagens/time.jpg)
 
-# Logo a baixo você pode ver nosso sistema de organização do projeto feito pela nossa equipe utilizando a ferramenta Trello:
+# Links:
 
 <a href="https://trello.com/b/94emya6U/frigologia-sprint-2"> Trello </a>
