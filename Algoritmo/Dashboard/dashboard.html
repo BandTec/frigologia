@@ -232,9 +232,10 @@
 
 				config.data.datasets[0].backgroundColor = '#af3b39';
 				config.data.datasets[0].borderColor = '#af3b39';
-				alert("Freezer em temperatura critica !!");
 
 				sortearFreezer(random, novoRegistro.leitura, '#af3b39', '#fff');
+				
+				// alert("Freezer em temperatura critica !!");
 
 			}
 
@@ -247,7 +248,7 @@
 		}, 2000); // 7000 ms -> 7 segundos
 	}
 
-	function sortearFreezer(freezer,registro,cor,color) {
+	async function sortearFreezer(freezer,registro,cor,color) {
 		var freezer1 = document.getElementById('status1');
 		var freezer2 = document.getElementById('status2');
 		var freezer3 = document.getElementById('status3');
@@ -262,18 +263,24 @@
 			freezer1.style.backgroundColor = cor;
 			freezer1.style.color = color;
 			text1.innerText = registro;
+
+			registro > 6 ? alert("Freezer 1 em temperatura critica !!") : '';
+			
 		} else if(freezer < 2) {
 			freezer2.style.backgroundColor = cor;
 			freezer2.style.color = color;
 			text2.innerText = registro;
+			registro > 6 ? alert("Freezer 2 em temperatura critica !!") : '';
 		} else if(freezer < 3) {
 			freezer3.style.backgroundColor = cor;
 			freezer3.style.color = color;
 			text3.innerText = registro;
+			registro > 6 ? alert("Freezer 3 em temperatura critica !!") : '';
 		} else if(freezer <= 4) {
 			freezer4.style.backgroundColor = cor;
 			freezer4.style.color = color;
 			text4.innerText = registro;
+			registro > 6 ? alert("Freezer 4 em temperatura critica !!") : '';
 		}
 
 	}
