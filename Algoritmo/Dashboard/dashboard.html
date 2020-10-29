@@ -47,28 +47,28 @@
 		<div class="container">
 			<div class="card-freezer">
 				<div id="status1">
-					<b id="status-text1">100</b>%
+					<b id="status-text1">0</b>°C
 				</div>
 				<p>Freezer 1</p>
 			</div>
 
 			<div class="card-freezer">
 				<div id="status2">
-					<b id="status-text2">50</b>%
+					<b id="status-text2">0</b>°C
 				</div>
 				<p>Freezer 2</p>
 			</div>
 
 			<div class="card-freezer">
 				<div id="status3">
-					<b id="status-text3">25</b>%
+					<b id="status-text3">0</b>°C
 				</div>
 				<p>Freezer 3</p>
 			</div>
 
 			<div class="card-freezer">
 				<div id="status4">
-					<b id="status-text4">0</b>%
+					<b id="status-text4">0</b>°C
 				</div>
 				<p>Freezer 4</p>
 			</div>
@@ -232,6 +232,7 @@
 
 				config.data.datasets[0].backgroundColor = '#af3b39';
 				config.data.datasets[0].borderColor = '#af3b39';
+				alert("Freezer em temperatura critica !!");
 
 				sortearFreezer(random, novoRegistro.leitura, '#af3b39', '#fff');
 
