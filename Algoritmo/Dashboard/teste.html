@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<script>
+    // Codigo do frizza
+    var agora = new Date();
+			var hora = agora.getHours();
+			var minuto = agora.getMinutes();
+			var segundo = agora.getSeconds();
+			var momento = `${hora>9?'':'0'}${hora}:${minuto>9?'':'0'}${minuto}:${segundo>9?'':'0'}${segundo}`;
+
+            // Codigo da frigologia
+            var dia = agora.getDate();
+            // A função getMonth() retorna um mês de 0 até 11 sendo o mês 0 = janeiro e mês 11 = dazendo
+            // logo se soma +1 para saber o mês atual
+            var mes = agora.getMonth() + 1;
+            // Formata o dia e o mes em uma variavel só
+            var mesdia = `${dia}/${mes}`;
+
+            alert(momento);
+</script>

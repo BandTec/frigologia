@@ -1,5 +1,6 @@
 const sensors = require('./sensors')
 
+
 class NewArduino {
 
     constructor(){
@@ -31,7 +32,7 @@ class NewArduino {
             this.__listDataTemp.push(data_float);
             this.listData.push(data_float);
 
-        }, 100);
+        }, 3000);
     }
 }
 

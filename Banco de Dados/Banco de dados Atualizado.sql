@@ -2,7 +2,7 @@ create database Frigologia;
 use Frigologia;
 
 create table tbEstabelecimento(
-idEstabelecimento int primary key,
+idEstabelecimento int primary key auto_increment,
 nomeEstabelecimento varchar(40),
 categoria varchar(40),
 cnpj char (18),
@@ -22,7 +22,7 @@ telefone char(13)
                                      (7, 'Açougue Mencarini', 'Açougue', '33.322.993/0001-99','Av Marginal Direita do Tietê', '500', 'Vila Jaguara','São Paulo','05118-100','11 95124-9857');
 */
 create table tbUsuario(
-idUsuario int primary key,
+idUsuario int primary key auto_increment,
 email varchar(40),
 senha varchar(40),
 fkEstabelecimentoUsuario int,
@@ -44,7 +44,7 @@ insert into tbUsuario values (1, 'renato.paulino@bandtec.com.br', 'qualquercoisa
                              (13,'luis.inacio@bandtec.com.br','qualquercoisa12',7);
 */
 create table tbFreezer(
-idFreezer int primary key,
+idFreezer int primary key auto_increment,
 tipo varchar(10),
 tamanho varchar(10),
 fkEstabelecimentoFreezer int,
@@ -63,7 +63,7 @@ foreign key (fkEstabelecimentoFreezer) references tbEstabelecimento (idEstabelec
 */
 
 create table tbSensor (
-idSensor int primary key,
+idSensor int primary key auto_increment,
 fkFreezer int,
 foreign key (fkFreezer) references tbFreezer (idFreezer)
 );
@@ -81,7 +81,7 @@ foreign key (fkFreezer) references tbFreezer (idFreezer)
  */
  
 create table tbDados (
-idDados int primary key,
+idDados int primary key auto_increment,
 temp varchar(5),
 dia char(4),
 hora char(8),
@@ -100,7 +100,7 @@ insert into tbDados values (1,'0°C','2020-10-01','20:00:00',1),
                            (8,'1°C','2020-05-09','07:00:00',8),
                            (9,'4°C','2020-04-08','21:00:00',9),
                            (10,'-3°C','2020-10-24','23:30:00',10);
-      */                      
+*/                      
 
 
 
