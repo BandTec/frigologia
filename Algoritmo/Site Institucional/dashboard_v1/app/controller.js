@@ -81,7 +81,20 @@ router.post('/sendData', (request, response) => {
     temperature = ArduinoDataTemp.List[ArduinoDataTemp.List.length -1];
     //luminosidade = ArduinoDataLuminosity.List[ArduinoDataLuminosity.List.length -1]
 
-    var sql = "INSERT INTO dados (type, temp) VALUES ('temperatura',?)";
+    var agora = new Date();
+    var hora = agora.getHours();
+    var minuto = agora.getMinutes();
+    var segundo = agora.getSeconds();
+    var momento = `${hora>9?'':'0'}${hora}:${minuto>9?'':'0'}${minuto}:${segundo>9?'':'0'}${segundo}`;
+
+    // Codigo da frigologia
+    var dia = agora.getDate();
+    // A função getMonth() retorna um mês de 0 até 11 sendo o mês 0 = janeiro e mês 11 = dazendo
+    // logo se soma +1 para saber o mês atual
+    var mes = agora.getMonth() + 1;
+    // Formata o dia e o mes em uma variavel só
+    var diaMes = `${dia}/${mes}`;
+    var sql = "INSERT INTO tbDados(temp,dia,hora,fkSensor) VALUES ('?','"+ diaMes+"','"+momento+"',1)";
 
     db.query(sql,temperature, function(err, result) {
         if (err) throw err;
