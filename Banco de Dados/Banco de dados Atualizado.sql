@@ -34,6 +34,7 @@ fkEstabelecimentoFreezer int,
 foreign key (fkEstabelecimentoFreezer) references tbEstabelecimento (idEstabelecimento)
 );
 insert into tbFreezer values (null,'horizontal', 100, 1);
+insert into tbFreezer values (null,'horizontal', 120, 1);
 
 
 create table tbSensor (
@@ -43,7 +44,7 @@ foreign key (fkFreezer) references tbFreezer (idFreezer)
 );
 
 insert into tbSensor values (null,1);
- 
+insert into tbSensor values (null,2); 
  
 create table tbDados (
 idDados int primary key auto_increment,
@@ -53,6 +54,7 @@ hora char(8),
 fkSensor int,
 foreign key (fkSensor) references tbSensor (idSensor)
 );
+
 
 
 

@@ -1,3 +1,4 @@
+const sensors = require('./sensors');
 const express = require('express');
 const { ArduinoDataTemp } = require('./newserial')
 const { ArduinoDataHumidity } = require('./serialHumidity')
@@ -94,12 +95,19 @@ router.post('/sendData', (request, response) => {
     var mes = agora.getMonth() + 1;
     // Formata o dia e o mes em uma variavel só
     var diaMes = `${dia}/${mes}`;
-    var sql = "INSERT INTO tbDados(temp,dia,hora,fkSensor) VALUES ('?','"+ diaMes+"','"+momento+"',1)";
+    // Laço de repetição com a quantidade de sensor que temos
+    for (let fk = 1; fk <=2; fk++) {
+        // Gerando temperaturas aleatorias e enviando para o banco
+        let random = sensors.lm35();
+        var sql = "INSERT INTO tbDados(temp,dia,hora,fkSensor) VALUES ("+random+",'"+ diaMes+"','"+momento+"',"+fk+')';
 
-    db.query(sql,temperature, function(err, result) {
-        if (err) throw err;
-        console.log("Número de registros inseridos: " + result.affectedRows);
-      });
+        db.query(sql,temperature, function(err, result) {
+            if (err) throw err;
+            console.log("Número de registros inseridos: " + result.affectedRows);
+          });
+        
+    }
+
       
 
     response.sendStatus(200);
