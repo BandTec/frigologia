@@ -17,17 +17,18 @@ section.dashboard div.container {
 }
 
 section.dashboard div.container section.graphic {
-    height: 400px;
+    height: 525px;
+    padding-right: 5%;
     display: flex;
-    flex: 1;
     justify-content: space-between;
 }
 
 section.dashboard div.container section.graphic div.cont-grafico div.graphic {
     padding: 25px;
-    width: 600px;
+    width: 800px;
     border-radius: 20px;
     box-shadow: 1px 1px 25px rgba(70, 70, 70, 0.3);
+    background-color: #fefefe;
 }
 
 section.graphic div.cont-grafico div.graphic canvas {
@@ -36,7 +37,7 @@ section.graphic div.cont-grafico div.graphic canvas {
 
 section.dashboard div.container section.graphic div.cont-dados {
     width: 500px;
-    height: 400px;
+    height: 100%;
     overflow: auto;
 }
 
@@ -89,6 +90,7 @@ section.dashboard div.container section.freezers div.cont-freezers {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     /* background-color: tomato; */
 }
 
@@ -103,14 +105,15 @@ section.dashboard div.container section.freezers div.cont-freezers div.freezer {
     justify-content: center;
     flex-direction: column;
     border-radius: 20px;
-    border: 1px solid var(--cor-status);
+    border: 1px solid var(--cor-blue);
+    cursor: pointer;
     background-color: #fefefe;
 }
 
-section.dashboard div.container section.freezers div.cont-freezers > div.freezer:nth-child(1) {
-    /* margin-right: 20px; */
+/* section.dashboard div.container section.freezers div.cont-freezers > div.freezer:nth-child(1) {
+    margin-right: 20px;
     box-shadow: 1px 1px 25px var(--cor-status);
-}
+} */
 
 section.dashboard div.container section.freezers div.cont-freezers div.freezer img {
     width: 70px;
@@ -127,4 +130,19 @@ section.dashboard div.container section.freezers div.cont-freezers div.freezer d
 
 section.dashboard div.container section.freezers div.cont-freezers div.freezer div.status h2 {
     font-size: 30px;
+}
+
+@media (max-width: 1366px) {
+    section.dashboard {
+        background-color: red;
+    }
+
+    section.dashboard div.container section.freezers div.cont-freezers {
+        /* justify-content: center; */
+    }
+
+    section.dashboard div.container section.graphic {
+        width: 100%;
+        padding: 0;
+    }
 }
