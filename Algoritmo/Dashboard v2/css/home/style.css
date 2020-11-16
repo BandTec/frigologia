@@ -1,0 +1,130 @@
+body {
+    display: flex;
+}
+
+section.dashboard {
+    width: calc(100vw - 70px);
+    display: flex;
+    overflow-y: auto;
+    margin-left: 70px;
+    background-color: var(--cor-bg);
+}
+
+section.dashboard div.container {
+    flex-direction: column; 
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+section.dashboard div.container section.graphic {
+    height: 400px;
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+}
+
+section.dashboard div.container section.graphic div.cont-grafico div.graphic {
+    padding: 25px;
+    width: 600px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 25px rgba(70, 70, 70, 0.3);
+}
+
+section.graphic div.cont-grafico div.graphic canvas {
+    width: 100%;
+}
+
+section.dashboard div.container section.graphic div.cont-dados {
+    width: 500px;
+    height: 400px;
+    overflow: auto;
+}
+
+section.dashboard div.container section.graphic div.cont-dados::-webkit-scrollbar {
+    width: 5px;
+    background-color: transparent;
+}
+
+section.dashboard div.container section.graphic div.cont-dados::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--cor-status);
+}
+
+section.dashboard div.container section.graphic div.cont-dados div.dados {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+section.dashboard div.container section.graphic div.cont-dados div.dados div.dado {
+    width: 400px;
+    height: 35px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border-radius: 20px;
+    justify-content: space-evenly;
+}
+
+section.dashboard div.container section.graphic div.cont-dados div.dados div.dado.last {
+    box-shadow: 1px 1px 25px rgba(70, 70, 70, 0.3);
+    background-color: #fefefe;
+}
+
+section.dashboard div.container section.graphic div.cont-dados div.dados div.dado span {
+    width: 70px;
+}
+
+section.dashboard div.container section.freezers {
+    margin-top: 50px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+section.dashboard div.container section.freezers div.cont-freezers {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    /* background-color: tomato; */
+}
+
+section.dashboard div.container section.freezers div.cont-freezers div.freezer {
+    width: 200px;
+    height: 200px;
+    padding: 25px;
+    margin-right: 20px;
+    margin-top: 20px;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 20px;
+    border: 1px solid var(--cor-status);
+    background-color: #fefefe;
+}
+
+section.dashboard div.container section.freezers div.cont-freezers > div.freezer:nth-child(1) {
+    /* margin-right: 20px; */
+    box-shadow: 1px 1px 25px var(--cor-status);
+}
+
+section.dashboard div.container section.freezers div.cont-freezers div.freezer img {
+    width: 70px;
+    margin-bottom: 10px;
+}
+
+section.dashboard div.container section.freezers div.cont-freezers div.freezer div.status {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: tomato; */
+}
+
+section.dashboard div.container section.freezers div.cont-freezers div.freezer div.status h2 {
+    font-size: 30px;
+}

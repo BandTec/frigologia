@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
+	<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home/style.css">
+    <title>Home</title>
+</head>
+
+<style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="options">
+                <img src="img/frigologo.png">
+
+                <div class="item actived">
+                    <img src="img/icons/bar-chart-black.svg" id="actived">
+                </div>
+                <span id="span_actived">Home</span>
+
+                <div class="item">
+                    <img src="img/icons/addchart-black.svg">
+                </div>
+                <span>New Freezer</span>
+            </div>
+
+            <div class="perfil">
+                <div class="options-perfil" id="card_option" style="display: none;">
+                    <div class="item-perfil">
+                        <img src="img/frigologo.png">
+                        <span>Usuario</span>
+                    </div>
+
+                    <div class="item-perfil">
+                        <img src="img/icons/power.svg">
+                        <span>Power</span>
+                    </div>
+                </div>
+
+                <div class="img-perfil" id="user_option">
+                    <img src="img/icons/users.svg">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="dashboard">
+        <div class="container">
+            <section class="graphic">
+                <div class="cont-grafico">
+                    <div class="title">
+                        <h2>Gráfico do freezer</h2>
+                        <span>Freezer 1</span>
+                    </div>
+                    <div class="graphic">
+                        <canvas id="c_grafico"></canvas>
+                    </div>
+                </div>
+                <div class="cont-dados">
+                    <div class="title">
+                        <h2>Últimos registros</h2>
+                        <span>Freezer 1</span>
+                    </div>
+                    <div class="dados">
+                        <div class="dado last">
+                            <span>N:</span>
+                            <span>Data</span>
+                            <span>Hora</span>
+                            <span>Status</span>
+                        </div>
+                        <div class="dado">
+                            <span>10</span>
+                            <span>15/11/20</span>
+                            <span>12:00</span>
+                            <span>Ideal</span>
+                        </div>                        <div class="dado">
+                            <span>10</span>
+                            <span>15/11/20</span>
+                            <span>12:00</span>
+                            <span>Ideal</span>
+                        </div>                        <div class="dado">
+                            <span>10</span>
+                            <span>15/11/20</span>
+                            <span>12:00</span>
+                            <span>Ideal</span>
+                        </div>                        <div class="dado">
+                            <span>10</span>
+                            <span>15/11/20</span>
+                            <span>12:00</span>
+                            <span>Ideal</span>
+                        </div>
+                        <div class="dado">
+                            <span>10</span>
+                            <span>15/11/20</span>
+                            <span>12:00</span>
+                            <span>Ideal</span>
+                        </div>
+                        <div class="dado">
+                            <span>10</span>
+                            <span>15/11/20</span>
+                            <span>12:00</span>
+                            <span>Ideal</span>
+                        </div>
+                        <div class="dado">
+                            <span>10</span>
+                            <span>15/11/20</span>
+                            <span>12:00</span>
+                            <span>Ideal</span>
+                        </div>
+                        <div class="dado">
+                            <span>10</span>
+                            <span>15/11/20</span>
+                            <span>12:00</span>
+                            <span>Ideal</span>
+                        </div>
+                        <div class="dado">
+                            <span>10</span>
+                            <span>15/11/20</span>
+                            <span>12:00</span>
+                            <span>Ideal</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="freezers">
+                <div class="title">
+                    <h2>Todos freezers</h2>
+                    <p>Freezer 1 selecionado</p>
+                </div>
+                <div class="cont-freezers">
+                    <div class="freezer">
+                        <img src="img/icons/freezer-blue.png">
+                        <span>Freezer 1</span>
+                        <div class="status">
+                            <h2>3°C</h2>
+                            <span>Ideal</span>
+                        </div>
+					</div>
+					<div class="freezer">
+                        <img src="img/icons/freezer-blue.png">
+                        <span>Freezer 1</span>
+                        <div class="status">
+                            <h2>3°C</h2>
+                            <span>Ideal</span>
+                        </div>
+                    </div>
+					<div class="freezer">
+                        <img src="img/icons/freezer-blue.png">
+                        <span>Freezer 1</span>
+                        <div class="status">
+                            <h2>3°C</h2>
+                            <span>Ideal</span>
+                        </div>
+                    </div>
+					<div class="freezer">
+                        <img src="img/icons/freezer-blue.png">
+                        <span>Freezer 1</span>
+                        <div class="status">
+                            <h2>3°C</h2>
+                            <span>Ideal</span>
+                        </div>
+                    </div>
+					<div class="freezer">
+                        <img src="img/icons/freezer-blue.png">
+                        <span>Freezer 1</span>
+                        <div class="status">
+                            <h2>3°C</h2>
+                            <span>Ideal</span>
+                        </div>
+                    </div>
+					<div class="freezer">
+                        <img src="img/icons/freezer-blue.png">
+                        <span>Freezer 1</span>
+                        <div class="status">
+                            <h2>3°C</h2>
+                            <span>Ideal</span>
+                        </div>
+                    </div>
+					<div class="freezer">
+                        <img src="img/icons/freezer-blue.png">
+                        <span>Freezer 1</span>
+                        <div class="status">
+                            <h2>3°C</h2>
+                            <span>Ideal</span>
+                        </div>
+                    </div>
+					<div class="freezer">
+                        <img src="img/icons/freezer-blue.png">
+                        <span>Freezer 1</span>
+                        <div class="status">
+                            <h2>3°C</h2>
+                            <span>Ideal</span>
+                        </div>
+                    </div>
+					<div class="freezer">
+                        <img src="img/icons/freezer-blue.png">
+                        <span>Freezer 1</span>
+                        <div class="status">
+                            <h2>3°C</h2>
+                            <span>Ideal</span>
+                        </div>
+					</div>
+					<div class="freezer">
+                        <img src="img/icons/freezer-blue.png">
+                        <span>Freezer 1</span>
+                        <div class="status">
+                            <h2>3°C</h2>
+                            <span>Ideal</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+
+</body>
+
+</html>
+<script src="js/header/functions.js"></script>
+
+<script>
+    window.onload = selecionar('bar-chart');
+</script>
+
+<script>
+
+	var config = {
+		type: 'line',
+		data: {
+			labels: [],
+			datasets: [{
+				label: 'Status ',
+				backgroundColor: window.chartColors.blue,
+				borderColor: window.chartColors.blue,
+				data: [],
+				fill: false,
+			}]
+		},
+		options: {
+			responsive: true,
+			title: {
+				display: true,
+				text: 'Gráfico médio dos freezers'
+			},
+			tooltips: {
+				mode: 'index',
+				intersect: false,
+			},
+			hover: {
+				mode: 'nearest',
+				intersect: true
+			},
+			scales: {
+				xAxes: [{
+					display: true,
+					scaleLabel: {
+						display: true,
+						labelString: 'Horário da Leitura'
+					}
+				}],
+				yAxes: [{
+					display: true,
+					scaleLabel: {
+						display: true,
+						labelString: 'Temperatura em ºC'
+					}
+				}]
+			}
+		}
+	};
+
+	// esse "sortearTemperatura()" será desnecessário quando usarmos o backend futuramente
+	function sortearTemperatura() {
+		var limiteMin = -2;
+		var limiteMax = 8;
+		var minimoAbsoluto = Math.abs(limiteMin);
+		var random = (Math.random() * (minimoAbsoluto+limiteMax) - minimoAbsoluto).toFixed(1);
+		return random;
+	}
+
+	function recuperarDadosIniciais() {
+
+		// esse "registros" será recuperado do backend futuramente
+		var registros = [
+			{
+				momento: '00:03:42',
+				leitura: sortearTemperatura()
+			},
+			{
+				momento: '00:03:52',
+				leitura: sortearTemperatura()
+			},
+			{
+				momento: '00:04:02',
+				leitura: sortearTemperatura()
+			},
+			{
+				momento: '00:04:12',
+				leitura: sortearTemperatura()
+			},
+			{
+				momento: '00:04:22',
+				leitura: sortearTemperatura()
+			},
+			{
+				momento: '00:04:32',
+				leitura: sortearTemperatura()
+			},
+			{
+				momento: '00:04:42',
+				leitura: sortearTemperatura()
+			}
+		];
+
+		var contador = 0;
+
+		// registros.length é a quantidade de itens em "registros"
+		while (contador < registros.length) {
+
+			config.data.labels.push(registros[contador].momento);  // incluir um novo momento
+			config.data.datasets[0].data.push(registros[contador].leitura);  // incluir uma nova leitura
+
+			contador++;
+		}
+
+	}
+
+	function receberNovasLeituras() {
+		setTimeout(() => {
+			
+			// esses "agora" etc até "momentos" serão desnecessários quando usarmos o backend futuramente
+			var agora = new Date();
+			var hora = agora.getHours();
+			var minuto = agora.getMinutes();
+			var segundo = agora.getSeconds();
+			var momento = `${hora>9?'':'0'}${hora}:${minuto>9?'':'0'}${minuto}:${segundo>9?'':'0'}${segundo}`;
+
+			var random = parseInt(Math.random() * 4);
+
+			// esse "novoRegistro" será recuperado do backend futuramente
+			var novoRegistro = {
+				momento: momento,
+				leitura: sortearTemperatura()
+			};
+			
+			// tirando e colocando valores no gráfico
+			config.data.labels.shift(); // apagar o primeiro
+			config.data.labels.push(novoRegistro.momento); // incluir um novo momento
+			config.data.datasets[0].data.shift();  // apagar o primeiro
+			config.data.datasets[0].data.push(novoRegistro.leitura); // incluir uma nova leitura
+
+			// if (novoRegistro.leitura < 0) {
+			
+			// 	config.data.datasets[0].backgroundColor = '#2a79c3';
+			// 	config.data.datasets[0].borderColor = '#2a79c3';
+
+			// 	sortearFreezer(random, novoRegistro.leitura, '#2a79c3', '#fff');
+			
+			// } else if (novoRegistro.leitura <= 4 ) {
+
+			// 	config.data.datasets[0].backgroundColor = '#36fa31';
+			// 	config.data.datasets[0].borderColor = '#36fa31';
+				
+			// 	sortearFreezer(random, novoRegistro.leitura, '#36fa31', '#19222c');
+			
+			// } else if (novoRegistro.leitura <= 6) {
+			
+			// 	config.data.datasets[0].backgroundColor = '#feda1c';
+			// 	config.data.datasets[0].borderColor = '#feda1c';
+
+			// 	sortearFreezer(random, novoRegistro.leitura, '#feda1c', '#19222c');
+
+			// } else if (novoRegistro.leitura > 6) {
+
+			// 	config.data.datasets[0].backgroundColor = '#af3b39';
+			// 	config.data.datasets[0].borderColor = '#af3b39';
+
+			// 	sortearFreezer(random, novoRegistro.leitura, '#af3b39', '#fff');
+				
+			// 	// alert("Freezer em temperatura critica !!");
+
+			// }
+
+			// Atualiza o gráfico
+			window.graficoLinha.update();	
+
+			// agendar a chamada da mesma função para daqui a 7 segundos
+			receberNovasLeituras();	
+
+		}, 2000); // 7000 ms -> 7 segundos
+	}
+
+	// function sortearFreezer(freezer,registro,cor,color) {
+	// 	var freezer1 = document.getElementById('status1');
+	// 	var freezer2 = document.getElementById('status2');
+	// 	var freezer3 = document.getElementById('status3');
+	// 	var freezer4 = document.getElementById('status4');
+
+	// 	var text1 = document.getElementById('status-text1');
+	// 	var text2 = document.getElementById('status-text2');
+	// 	var text3 = document.getElementById('status-text3');
+	// 	var text4 = document.getElementById('status-text4');
+	
+	// 	if(freezer < 1) {
+	// 		freezer1.style.backgroundColor = cor;
+	// 		freezer1.style.color = color;
+	// 		text1.innerText = registro;
+
+	// 		registro > 6 ? alert("Freezer 1 em temperatura critica !!") : '';
+			
+	// 	} else if(freezer < 2) {
+	// 		freezer2.style.backgroundColor = cor;
+	// 		freezer2.style.color = color;
+	// 		text2.innerText = registro;
+	// 		registro > 6 ? alert("Freezer 2 em temperatura critica !!") : '';
+	// 	} else if(freezer < 3) {
+	// 		freezer3.style.backgroundColor = cor;
+	// 		freezer3.style.color = color;
+	// 		text3.innerText = registro;
+	// 		registro > 6 ? alert("Freezer 3 em temperatura critica !!") : '';
+	// 	} else if(freezer <= 4) {
+	// 		freezer4.style.backgroundColor = cor;
+	// 		freezer4.style.color = color;
+	// 		text4.innerText = registro;
+	// 		registro > 6 ? alert("Freezer 4 em temperatura critica !!") : '';
+	// 	}
+
+	// }
+
+	function plotarGrafico() {
+		// chamar os 7 últimos registros de leitura
+		recuperarDadosIniciais();
+
+		// criação do gráfico na página
+		var ctx = document.getElementById('c_grafico').getContext('2d');
+		window.graficoLinha = new Chart(ctx, config);
+
+		// função que agenda a recuperação da última leitura para daqui a 7 segundos
+		receberNovasLeituras();
+	}
+
+	// indicando que a função "plotarGrafico" será invocada assim que a página carregar
+	window.onload = plotarGrafico;
+
+</script>
