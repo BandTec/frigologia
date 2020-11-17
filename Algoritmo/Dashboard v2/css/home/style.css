@@ -21,7 +21,6 @@ section.dashboard div.container section.graphic {
     padding-right: 5%;
     display: flex;
     justify-content: space-between;
-    background-color: antiquewhite;
 }
 
 section.dashboard div.container section.graphic div.cont-grafico div.graphic {
