@@ -1,0 +1,41 @@
+Criação das tabelas:
+
+create table estabelecimento(
+idEstabelecimento int primary key,
+nomeEstabelecimento varchar(40),
+categoria varchar(40),
+cnpj char(13),
+rua varchar(50),
+numero char(4)
+);
+
+create table usuario (
+idUsuario int primary key,
+email varchar(40),
+senha varchar(40),
+fkEstabelecimento int,
+foreign key (fkEstabelecimento) references estabelecimento(idEstabelecimento) 
+);
+
+create table freezer (
+idFreezer int primary key,
+tipo varchar(10),
+tamanho varchar(10),
+fkEstabelecimento int,
+foreign key (fkEstabelecimento) references estabelecimento(idEstabelecimento) 
+)
+
+create table sensor(
+idSensor int primary key,
+fkFreezer int,
+foreign key (fkFreezer) references freezer(idFreezer)
+);
+
+create table dados(
+idDados int primary key,
+temp varchar(5),
+diaHora datetime,
+fkSensor int,
+foreign key (fkSensor) references sensor(idSensor)
+)
+
