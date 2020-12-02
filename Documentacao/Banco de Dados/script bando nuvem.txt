@@ -1,0 +1,48 @@
+Criação das tabelas:
+
+create table estabelecimento(
+idEstabelecimento int primary key identity, 
+nomeEstabelecimento varchar(40),
+categoria varchar(40),
+cnpj char(13),
+rua varchar(50),
+numero char(4)
+);
+
+create table usuario (
+idUsuario int primary key identity,
+email varchar(40),
+senha varchar(40),
+fkEstabelecimento int,
+foreign key (fkEstabelecimento) references estabelecimento(idEstabelecimento) 
+);
+
+create table freezer (
+idFreezer int primary key identity,
+tipo varchar(10),
+tamanho varchar(10),
+fkEstabelecimento int,
+foreign key (fkEstabelecimento) references estabelecimento(idEstabelecimento) 
+)
+
+create table sensor(
+idSensor int primary key identidy,
+fkFreezer int,
+foreign key (fkFreezer) references freezer(idFreezer)
+);
+
+create table dados(
+idDados int primary key identity ,
+temp varchar(5),
+diaMes char(5),
+horario char(8),
+fkSensor int,
+foreign key (fkSensor) references sensor(idSensor)
+)
+
+Inserindo dados
+insert into estabelecimento values ('Extra','Supermercado','0000000000000','Dos bobos', 0)
+insert into usuario values ('usuario@teste','teste',1)
+insert into freezer values ('horizontal','200l',1)
+insert into sensor values (1);
+
