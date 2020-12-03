@@ -2,7 +2,7 @@ const express = require("express");
 const { ArduinoDataTemp } = require("./newserial");
 const { ArduinoDataHumidity } = require("./serialHumidity");
 const { ArduinoDataSwitch } = require("./serialSwitch");
-const { ArduinoDataLuminosity} = require("./serialLuminosidity");
+const { ArduinoDataLuminosity } = require("./serialLuminosidity");
 const db = require("./database");
 const sensores = require("./sensors");
 const router = express.Router();
@@ -75,46 +75,46 @@ router.get("/luminosity", (request, response, next) => {
 
 });
 
-router.get("/sendData", (request, response) => {
-const temperature = ArduinoDataTemp.List[ArduinoDataTemp.List.length - 1];
-const Humidity = ArduinoDataHumidity.List[ArduinoDataHumidity.List.length - 1];
-//luminosidade = ArduinoDataLuminosity.List[ArduinoDataLuminosity.List.length -1]
+setInterval(()=> router.get("/sendData", (request, response) => {
+  const temperature = ArduinoDataTemp.List[ArduinoDataTemp.List.length - 1];
+  const Humidity = ArduinoDataHumidity.List[ArduinoDataHumidity.List.length - 1];
+  //luminosidade = ArduinoDataLuminosity.List[ArduinoDataLuminosity.List.length -1]
 
 
 
-db.conectar()
+  db.conectar()
     .then(() => {
-        var agora = new Date();
-        var hora = agora.getHours();
-        var minuto = agora.getMinutes();
-        var segundo = agora.getSeconds();
-        var momento = `${hora>9?'':'0'}${hora}:${minuto>9?'':'0'}${minuto}:${segundo>9?'':'0'}${segundo}`;
-    
-  
-        var dia = agora.getDate();
+      var agora = new Date();
+      var hora = agora.getHours();
+      var minuto = agora.getMinutes();
+      var segundo = agora.getSeconds();
+      var momento = `${hora > 9 ? '' : '0'}${hora}:${minuto > 9 ? '' : '0'}${minuto}:${segundo > 9 ? '' : '0'}${segundo}`;
 
-        var mes = agora.getMonth() + 1;
 
-        var diaMes = `${dia}/${mes}`;
-        for(fk=1;fk<=5;fk++){
-              let random = sensores.lm35().toFixed(2);
-                const sql = `
+      var dia = agora.getDate();
+
+      var mes = agora.getMonth() + 1;
+
+      var diaMes = `${dia}/${mes}`;
+      for (fk = 1; fk <= 5; fk++) {
+        let random = sensores.lm35().toFixed(2);
+        const sql = `
                 INSERT into dados (temp, diames, horario, fkSensor)
                 values ('${random}', '${diaMes}', '${momento}','${fk}');`;
-            return db.sql.query(sql).then(()=>{
-                console.log("Registro inserido com sucesso! \n" + fk);
-            });;
-            
-          }
-        }
-      )
+        db.sql.query(sql).then(() => {
+          console.log("Registro inserido com sucesso! \n" + fk);
+        });;
+
+      }
+    }
+    )
     .catch((erro) => {
-    console.error(`Erro ao tentar registrar aquisição na base: ${erro}`);
+      console.error(`Erro ao tentar registrar aquisição na base: ${erro}`);
     })
 
 
-response.sendStatus(200);
-});
+  response.sendStatus(200);
+}),5000);
 
 
 
