@@ -17,15 +17,6 @@
     display: flex;
 }
 
-.title {
-    display: flex;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.title h2 {
-    margin-right: 50px;
-}
 header {
     width: 70px;
     height: 100vh;

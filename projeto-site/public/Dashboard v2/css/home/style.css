@@ -1,9 +1,30 @@
 body {
     display: flex;
+    background-color: var(--cor-bg);
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.title h2 {
+    margin-right: 50px;
+}
+
+#id_close {
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#id_close:hover {
+    color: var(--cor-red);
 }
 
 section.dashboard {
     width: calc(100vw - 70px);
+    height: 100vh;
     display: flex;
     overflow-y: auto;
     margin-left: 70px;
@@ -11,7 +32,9 @@ section.dashboard {
 }
 
 section.dashboard div.container {
-    flex-direction: column; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
     padding-top: 50px;
     padding-bottom: 50px;
 }
@@ -19,8 +42,36 @@ section.dashboard div.container {
 section.dashboard div.container section.graphic {
     height: 525px;
     padding-right: 5%;
-    display: flex;
+    /* display: flex; */
     justify-content: space-between;
+    animation-name: sidein;
+    animation-duration: 1.5s;
+}
+
+@keyframes sidein {
+    from {
+        margin-top: -420px;
+        opacity: 0;
+    }
+
+    to {
+        display: flex;
+        margin-top: 0px;
+        opacity: 1;
+    }
+}
+
+@keyframes sideoff {
+    from {
+        margin-top: 0px;
+        opacity: 1;
+    }
+
+    to {
+        margin-top: -425px;
+        display: none;
+        opacity: 0;
+    }
 }
 
 section.dashboard div.container section.graphic div.cont-grafico div.graphic {
@@ -84,6 +135,16 @@ section.dashboard div.container section.freezers {
     display: flex;
     flex: 1;
     flex-direction: column;
+}
+
+section.dashboard div.container section.freezers div.title {
+    display: flex;
+    justify-content: space-between;
+}
+
+section.dashboard div.container section.freezers div.title div {
+    display: flex;
+    align-items: center;
 }
 
 section.dashboard div.container section.freezers div.cont-freezers {

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
     <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+    <script src="https://kit.fontawesome.com/48b24e7021.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/home/style.css">
@@ -59,7 +60,7 @@
 
     <section class="dashboard">
         <div class="container">
-            <section class="graphic">
+            <section id="sec_graphic" class="graphic" style="display: none;">
                 <div class="cont-grafico">
                     <div class="title">
                         <h2>Gráfico do freezer</h2>
@@ -140,8 +141,11 @@
             </section>
             <section class="freezers">
                 <div class="title">
-                    <h2>Todos freezers</h2>
-                    <p>Freezer 1 selecionado</p>
+                    <div>
+                        <h2>Todos freezers</h2>
+                        <p>Freezer 1 selecionado</p>
+                    </div>
+                    <i id="id_close" title="Fechar gráfico" class="fas fa-times fa-lg" style="display: none;"></i>
                 </div>
                 <div class="cont-freezers">
                     <div class="freezer" id="freezer1">
@@ -235,7 +239,7 @@
     }
 
 
-    function toogleShadow (f_selected,registro) {
+    function toogleShadow(f_selected, registro) {
         document.getElementById(`freezer${f_selected}`).style.boxShadow = `none`;
         document.getElementById(`freezer${f_selected}`).style.boxShadow = `1px 1px 25px ${validarParaCores(registro)}`;
     }
@@ -243,33 +247,53 @@
     function selectFreezer(freezer, f_selected, ultimo_registo_position) {
         document.getElementById(`freezer${freezer}`).style.boxShadow = 'none';
         freezer_selected = f_selected;
-        toogleShadow(f_selected,ultimo_registro[ultimo_registo_position].registro)
+        toogleShadow(f_selected, ultimo_registro[ultimo_registo_position].registro)
         changeSensor(ultimo_registo_position);
     };
 
     document.getElementById('freezer1').onclick = function () {
+        sec_graphic.style.display = 'flex';
+        sec_graphic.style.animationName = 'sidein';
         mudarCoresGrafico(validarParaCores(ultimo_registro[0].registro));
         selectFreezer(freezer_selected, 1, 0);
+        id_close.style.display = 'block';
     }
     document.getElementById('freezer2').onclick = function () {
+        sec_graphic.style.display = 'flex';
+        sec_graphic.style.animationName = 'sidein';
         mudarCoresGrafico(validarParaCores(ultimo_registro[1].registro));
         selectFreezer(freezer_selected, 2, 1);
+        id_close.style.display = 'block';
     }
     document.getElementById('freezer3').onclick = function () {
+        sec_graphic.style.display = 'flex';
+        sec_graphic.style.animationName = 'sidein';
         mudarCoresGrafico(validarParaCores(ultimo_registro[2].registro));
         selectFreezer(freezer_selected, 3, 2);
+        id_close.style.display = 'block';
     }
 
     document.getElementById('freezer4').onclick = function () {
+        sec_graphic.style.display = 'flex';
+        sec_graphic.style.animationName = 'sidein';
         mudarCoresGrafico(validarParaCores(ultimo_registro[3].registro));
         selectFreezer(freezer_selected, 4, 3);
+        id_close.style.display = 'block';
     }
 
     document.getElementById('freezer5').onclick = function () {
+        sec_graphic.style.display = 'flex';
+        sec_graphic.style.animationName = 'sidein';
         mudarCoresGrafico(validarParaCores(ultimo_registro[4].registro));
         selectFreezer(freezer_selected, 5, 4);
+        id_close.style.display = 'block';
     }
 
+    document.getElementById('id_close').onclick = function () {
+        sec_graphic.style.animationName = 'sideoff';
+        setTimeout(() => sec_graphic.style.display = 'none', 1000)
+        id_close.style.display = 'none';
+    }
 </script>
 
 <script>
@@ -460,7 +484,7 @@
             status1.innerHTML += `<p style="color:${cor}">${status}</p>`;
 
             if (freezer == freezer_selected) {
-                toogleShadow(1,registro);
+                toogleShadow(1, registro);
                 mudarCoresGrafico(cor);
             }
 
@@ -474,7 +498,7 @@
             status2.innerHTML += `<p style="color:${cor}">${status}</p>`;
 
             if (freezer == freezer_selected) {
-                toogleShadow(2,registro);
+                toogleShadow(2, registro);
                 mudarCoresGrafico(cor);
             }
 
@@ -488,7 +512,7 @@
             status3.innerHTML += `<p style="color:${cor}">${status}</p>`;
 
             if (freezer == freezer_selected) {
-                toogleShadow(3,registro);
+                toogleShadow(3, registro);
                 mudarCoresGrafico(cor);
             }
 
@@ -502,7 +526,7 @@
             status4.innerHTML += `<p style="color:${cor}">${status}</p>`;
 
             if (freezer == freezer_selected) {
-                toogleShadow(4,registro);
+                toogleShadow(4, registro);
                 mudarCoresGrafico(cor);
             }
 
