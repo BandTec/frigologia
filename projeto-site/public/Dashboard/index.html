@@ -201,6 +201,8 @@
 <script>
     window.onload = selecionar('bar-chart');
 
+    // Função responsável por trazer o ultimo registro do banco de dados, utilizando as rotas do node 
+    // Função recebe um parametro que é referente a fk do sensor cadastrado no banco
     function buscarDadoPorSensor(idSensor) {
         fetch(`/leituras/ultimas/${idSensor}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
@@ -210,13 +212,18 @@
                     
                     // Armazenando temperatura retornada do banco
                     let temp = Number(resposta[0].temp);
+                    // Armazena na variavel o status da temperatura, (A Função faz todas as validações especificadas nas faixas de alerta)
                     let status = validarStatusTemp(temp)
+                    // Armazena na variavel a cor do status da temperatura, (A Função faz todas as validações especificadas nas faixas de alerta)
                     let color = validarParaCores(temp);
                     // Apresentando a temperatura no freezer do sensor correspondente
                     // Função validar para cores está utilizando a temperatura para retornar qual cor do status da temperatura
-                    // Função validarStatusTemp valida o status da temperatura (fri, ideal... etc)
+                    // Função validarStatusTemp valida o status da temperatura (frio, ideal... etc)
                     document.getElementById(`freezer${idSensor}`).style.borderColor = color; 
+                    // Atualizando o src do icone com o status da temperatura
+                    // toLowerCase está sendo utilizado para deixar o status com todas as letras minúsculas, para ficar igual ao nome do icone 
                     document.getElementById(`freezer${idSensor}-img`).src = `img/icons/freezer-${status.toLowerCase()}.png`; 
+                    // Atualizando a descrição dos freezeres com a nova temperatura e o novo status
                     document.getElementById(`status-freezer${idSensor}`).innerHTML = `
                         <h2 style="color:${color}">${resposta[0].temp}°C</h2>
                         <span style="color:${color}">${status}</span>
@@ -251,7 +258,7 @@
 
     document.getElementById(`freezer1`).style.boxShadow = `1px 1px 25px ${validarParaCores(ultimo_registro[4].registro)}`;
 
-
+    // função realiza as validações das faixas de alerta, retornando a cor do status
     function validarParaCores(params) {
         if (Number(params) < 0) {
             return '#348899';
@@ -263,7 +270,7 @@
             return '#BE2D21';
         }
     }
-
+    // função realiza as validações das faixas de alerta, retornando o status
     function validarStatusTemp(params) {
         if (Number(params) < 0) {
             return 'Frio';
@@ -337,9 +344,6 @@
         setTimeout(() => sec_graphic.style.display = 'none', 1000)
         id_close.style.display = 'none';
     }
-</script>
-
-<script>
 
     var config = {
         type: 'line',
