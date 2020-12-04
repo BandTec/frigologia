@@ -147,48 +147,7 @@
                     </div>
                     <i id="id_close" title="Fechar gráfico" class="fas fa-times fa-lg" style="display: none;"></i>
                 </div>
-                <div class="cont-freezers">
-                    <div class="freezer" id="freezer1">
-                        <img src="img/icons/freezer-frio.png" id="freezer1-img">
-                        <span>Freezer 1</span>
-                        <div class="status" id="status-freezer1">
-                            <h2>-1°C</h2>
-                            <span>Frio</span>
-                        </div>
-                    </div>
-                    <div class="freezer" id="freezer2">
-                        <img src="img/icons/freezer-frio.png" id="freezer2-img">
-                        <span>Freezer 2</span>
-                        <div class="status" id="status-freezer2">
-                            <h2>-1°C</h2>
-                            <span>Frio</span>
-                        </div>
-                    </div>
-                    <div class="freezer" id="freezer3">
-                        <img src="img/icons/freezer-frio.png" id="freezer3-img">
-                        <span>Freezer 3</span>
-                        <div class="status" id="status-freezer3">
-                            <h2>-1°C</h2>
-                            <span>Frio</span>
-                        </div>
-                    </div>
-                    <div class="freezer" id="freezer4">
-                        <img src="img/icons/freezer-frio.png" id="freezer4-img">
-                        <span>Freezer 4</span>
-                        <div class="status" id="status-freezer4">
-                            <h2>-1°C</h2>
-                            <span>Frio</span>
-                        </div>
-                    </div>
-                    <div class="freezer" id="freezer5">
-                        <img src="img/icons/freezer-frio.png" id="freezer5-img">
-                        <span>Freezer 5</span>
-                        <div class="status" id="status-freezer5">
-                            <h2>-1°C</h2>
-                            <span>Frio</span>
-                        </div>
-                    </div>
-                </div>
+                <div class="cont-freezers" id="cont-freezers"></div>
             </section>
         </div>
     </section>
@@ -201,15 +160,82 @@
 <script>
     window.onload = selecionar('bar-chart');
 
-    // Função responsável por trazer o ultimo registro do banco de dados, utilizando as rotas do node 
-    // Função recebe um parametro que é referente a fk do sensor cadastrado no banco
-    function buscarDadoPorSensor(idSensor) {
-        fetch(`/leituras/ultimas/${idSensor}`, { cache: 'no-store' }).then(function (response) {
+    // Função que busca todos os dados de todos os freezers em ordem de maior temperatura primeiro e insere na tela 
+    function buscarFreezers() {
+        // Rota de buscar dados do banco
+        fetch(`/leituras/ultimas`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-                    
+
+                    // console.log(resposta)
+                    // console.log(resposta.length)
+
+                    // Função para inserir os cards/botões na tela
+                    inserirCards(resposta);
+                    // Função para dar a função de click nos cards/botões
+                    functionClickCard(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+
+    function inserirCards(params) {
+        // Limpa a div onde os freezeres vão aparecer
+        document.getElementById('cont-freezers').innerHTML = '';
+
+        // For para percorrer todo o JSON retornado da api  
+        for (let i = 0; i < params.length; i++) {
+            // Inserir o card/botão do freezer na tela
+            // Id do freezer corresponde ao id do banco 
+            // Cores e status são adicionados com a função de validar as temperaturas de acordo com a faixa de alertas 
+            document.getElementById('cont-freezers').innerHTML += `
+                            <div class="freezer" id="freezer${params[i].idFreezer}">
+                                <img src="img/icons/freezer-${validarStatusTemp(params[i].temp).toLowerCase()}.png" id="${params[i].idFreezer}-img">
+                                <span>Freezer ${params[i].idFreezer}</span>
+                                <div class="status" id="status-freezer${params[i].idFreezer}">
+                                    <h2 style="color: ${validarParaCores(params[i].temp)}">${params[i].temp}</h2>
+                                    <span style="color: ${validarParaCores(params[i].temp)}">${validarStatusTemp(params[i].temp)}</span>
+                                </div>
+                            </div>
+                        `;
+
+            // Adicionar a borda do card de acordo com o status dele 
+            document.getElementById(`freezer${params[i].idFreezer}`).style.borderColor = `${validarParaCores(params[i].temp)}`;
+        }
+
+        // Adicionando a sombra no primeiro botão
+        document.getElementById(`freezer${params[0].idFreezer}`).style.boxShadow = `1px 1px 25px ${validarParaCores(params[0].temp)}`;
+    }
+
+    function functionClickCard(params) {
+
+        for (let i = 0; i < params.length; i++) {
+            // Adiciona a função de click nos botões
+            console.log(`freezer${params[i].idFreezer}`)
+            document.getElementById(`freezer${params[i].idFreezer}`).onclick = function () {
+                alert('(barulinho do notebook do arthur)')
+            }
+        }
+    }
+
+    // Função responsável por trazer o ultimo registro do banco de dados, utilizando as rotas do node 
+    // Função recebe um parametro que é referente a fk do sensor cadastrado no banco
+    function buscarDadoPorSensor(idSensor) {
+        fetch(`/leituras/ultima-leitura/${idSensor}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
                     // Armazenando temperatura retornada do banco
                     let temp = Number(resposta[0].temp);
                     // Armazena na variavel o status da temperatura, (A Função faz todas as validações especificadas nas faixas de alerta)
@@ -219,10 +245,10 @@
                     // Apresentando a temperatura no freezer do sensor correspondente
                     // Função validar para cores está utilizando a temperatura para retornar qual cor do status da temperatura
                     // Função validarStatusTemp valida o status da temperatura (frio, ideal... etc)
-                    document.getElementById(`freezer${idSensor}`).style.borderColor = color; 
+                    document.getElementById(`freezer${idSensor}`).style.borderColor = color;
                     // Atualizando o src do icone com o status da temperatura
                     // toLowerCase está sendo utilizado para deixar o status com todas as letras minúsculas, para ficar igual ao nome do icone 
-                    document.getElementById(`freezer${idSensor}-img`).src = `img/icons/freezer-${status.toLowerCase()}.png`; 
+                    document.getElementById(`freezer${idSensor}-img`).src = `img/icons/freezer-${status.toLowerCase()}.png`;
                     // Atualizando a descrição dos freezeres com a nova temperatura e o novo status
                     document.getElementById(`status-freezer${idSensor}`).innerHTML = `
                         <h2 style="color:${color}">${resposta[0].temp}°C</h2>
@@ -241,19 +267,19 @@
 
     var freezer_selected = 1;
     var ultimo_registro = [{
-        registro: buscarDadoPorSensor(1)
+        registro: buscarDadoPorSensor(6)
     },
     {
-        registro: buscarDadoPorSensor(2)
+        registro: buscarDadoPorSensor(7)
     },
     {
-        registro: buscarDadoPorSensor(3)
+        registro: buscarDadoPorSensor(8)
     },
     {
-        registro: buscarDadoPorSensor(4)
+        registro: buscarDadoPorSensor(9)
     },
     {
-        registro: buscarDadoPorSensor(5)
+        registro: buscarDadoPorSensor(10)
     }];
 
     document.getElementById(`freezer1`).style.boxShadow = `1px 1px 25px ${validarParaCores(ultimo_registro[4].registro)}`;

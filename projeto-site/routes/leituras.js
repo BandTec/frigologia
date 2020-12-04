@@ -4,14 +4,18 @@ var sequelize = require('../models').sequelize;
 var Leitura = require('../models').Leitura;
 
 /* Recuperar as últimas N leituras */
-router.get('/ultimas/:idsensor', function(req, res, next) {
+router.get('/ultimas', function(req, res, next) {
 	
 	// quantas são as últimas leituras que quer? 8 está bom?
 	// const limite_linhas = 7;
-	var idsensor = req.params.idsensor;
+	// var idsensor = req.params.idsensor;
 	// console.log(`Recuperando as últimas ${limite_linhas} leituras`);
 	
-	const instrucaoSql = `select top 1 idDados, temp, diames, horario, fkSensor from dados where fkSensor = ${idsensor} order by idDados desc`;
+	// const instrucaoSql = `select idDados, temp, diames, horario, fkSensor from dados where fkSensor = ${idsensor} order by idDados desc`;
+
+	const instrucaoSql = `select idFreezer, idSensor, idDados, temp, diames, horario, fkEstabelecimento from freezer inner join sensor on fkFreezer = idFreezer
+    inner join dados on fkSensor = idSensor order by dados.temp;
+`;
 
 	sequelize.query(instrucaoSql, {
 		model: Leitura,
@@ -25,6 +29,32 @@ router.get('/ultimas/:idsensor', function(req, res, next) {
 			res.status(500).send(erro.message);
 	  });
 });
+
+router.get('/ultima-leitura/:idsensor', function(req, res, next) {
+	
+	// quantas são as últimas leituras que quer? 8 está bom?
+	// const limite_linhas = 7;
+	var idsensor = req.params.idsensor;
+	// console.log(`Recuperando as últimas ${limite_linhas} leituras`);
+	
+	const instrucaoSql = `select top 1 idDados, temp, diames, horario, fkSensor from dados where fkSensor = ${idsensor} order by idDados desc`;
+
+	// const instrucaoSQL = `select * from freezer inner join sensor on fkFreezer = idFreezer
+    // inner join dados on fkSensor = idSensor order by dados.temp desc;`;
+
+	sequelize.query(instrucaoSql, {
+		model: Leitura,
+		mapToModel: true 
+	  })
+	  .then(resultado => {
+			console.log(`Encontrados: ${resultado.length}`);
+			res.json(resultado);
+	  }).catch(erro => {
+			console.error(erro);
+			res.status(500).send(erro.message);
+	  });
+});
+
 
 
 // tempo real (último valor de cada leitura)
