@@ -138,13 +138,129 @@ header div.container div.perfil img {
     color: black;
 }
 
+.editarperfil {
+
+    font-size: 60px;
+    padding-top: 20px;
+    margin-left: 550px;
+  
+}
+
 #fotoperfil {
 
-    height: 240px;
+    height: 350px;
     float: right;
-    margin-right: 220px;
-    margin-top: 100px;
-    /* opacity: 50%; */
+    margin-right: 200px;
+    margin-top: 50px;
+    opacity: 30%;
 }
+
+
+
+.dadosusuario {
+
+    padding-top: 25px;
+    margin-left: 250px;
+    
+}
+
+#tamanhofonte {
+
+    font-size: 18px;
+    font-style: italic;
+    
+ }
+
+
+#nomeEstabelecimento {
+
+    width: 330px;
+    height: 30px;
+    border-radius: 10px;
+    border-color: #348899;
+    
+}
+ 
+#categoria {
+
+    height: 30px;
+    border-radius: 10px;
+    border-color: #348899;
+}
+
+#cnpj {
+
+    width: 200px;
+    height: 30px;
+    border-radius: 10px;
+    border-color: #348899;
+
+}
+
+#rua {
+
+    width: 330px;
+    height: 30px;
+    border-radius: 10px;
+    border-color: #348899;
+
+}
+
+#num {
+
+    height: 30px;
+    border-radius: 10px;
+    border-color: #348899;
+
+}
+
+#email {
+
+    height: 30px;
+    border-radius: 10px;
+    border-color: #348899;
+
+}
+
+#senha {
+
+    height: 30px;
+    border-radius: 10px;
+    border-color: #348899;
+
+}
+
+.salvar {
+
+    width: 150px;
+    height: 35px;
+    margin-left: 100px;
+    border-radius: 10px;
+    border-style: solid 1px black;
+    /* border-style:   */
+    background-color: #348899;
+
+}
+
+.salvar:hover {
+
+    background-color: white;
+    color: #348899;
+    transition: 0.3s;
+    border-color: #348899;
+    cursor: pointer;
+
+}
+
+.alterar {
+
+    float: right;
+    margin-right: 305px;
+    margin-top: -100px;
+    cursor: pointer;
+}
+
+
+
 
 /* fim do header */
