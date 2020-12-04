@@ -85,15 +85,15 @@
         <input id="rua" type="text" placeholder="Insira a rua de endereço"> <br><br>
 
         <p class="num" id="tamanhofonte">Numero</p>
-        <input  id="num" type="text" placeholder="Insira o mumero"> <br><br>
+        <input  id="num" type="number" placeholder="Insira o mumero"> <br><br>
 
         <p class="email" id="tamanhofonte">Email</p>
-        <input id="email" type="text" placeholder="Insira o email"><br><br>
+        <input id="email" type="email" placeholder="Insira o email"><br><br>
 
         <p class="senha" id="tamanhofonte">Senha</p>
         <input id="senha" type="text" placeholder="insira sua senha">
 
-        <button class="salvar">Salvar alterações</button>
+        <button onclick="salvar()" class="salvar">Salvar alterações</button>
 
     </div>
 
@@ -105,3 +105,17 @@
 </html>
 
 <script src="js/header/functions.js"></script>
+
+<script>
+
+    function salvar() {
+
+        if (nomeEstabelecimento.value == "" || cnpj.value == "" || rua.value == "" || num.value == "" || email.value == "" || senha.value == "") {
+            alert("Preencha todos os campos!")
+
+        } else {
+            alert("Dados atualizados!")
+        }
+    }
+
+</script>
