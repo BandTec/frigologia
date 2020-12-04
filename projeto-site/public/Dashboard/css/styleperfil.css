@@ -11,10 +11,17 @@
     --cor-bg: #f6f7fb
 }
 
+body {
+
+    background-color: #f6f7fb;
+
+}
+
 .container {
     width: 90%;
     margin: 0 auto;
     display: flex;
+    
 }
 
 header {
@@ -130,4 +137,14 @@ header div.container div.perfil img {
     display: inline-block;
     color: black;
 }
-/* fim perfil */
+
+#fotoperfil {
+
+    height: 240px;
+    float: right;
+    margin-right: 220px;
+    margin-top: 100px;
+    /* opacity: 50%; */
+}
+
+/* fim do header */

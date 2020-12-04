@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
+    <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+    <script src="https://kit.fontawesome.com/48b24e7021.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="css/global.css"> -->
+    <link rel="stylesheet" href="css/styleperfil.css">
+    <title>Perfil</title>
+</head>
+
+<style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+
+<body>
+    
+    <header>
+        <div class="container">
+            <div class="options">
+                <img src="img/frigologo.png">
+
+                <div class="item actived">
+                    <a href="index.html"><img src="img/icons/bar-chart-black.svg" id="actived"></a>
+                </div>
+                <span id="span_actived">Home</span>
+
+                <div class="item">
+                    <img src="img/icons/addchart-black.svg">
+                </div>
+                <span>New Freezer</span>
+            </div>
+
+            <div class="perfil">
+                <div class="options-perfil" id="card_option" style="display: none;">
+                    <div class="item-perfil">
+                        <img src="img/frigologo.png">
+                        <a href="perfil.html"><span id="usuario">Usuario</span></a>
+                    </div>
+
+                    <div class="item-perfil">
+                        <img src="img/icons/power.svg">
+                        <span>Power</span>
+                    </div>
+                </div>
+
+                <div class="img-perfil" id="user_option">
+                    <img src="img/icons/users.svg">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <img id="fotoperfil" src="img/fotoperfil.png" alt="">
+
+    
+</body>
+
+</html>
+
+<script src="js/header/functions.js"></script>
