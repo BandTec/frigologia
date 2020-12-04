@@ -1,9 +1,9 @@
 module.exports = {
   production: {
-    username: 'seu_login',
-    password: 'sua_senha',
-    database: 'seu_database',
-    host: 'seu_database.database.windows.net',
+    username: 'frigologia',
+    password: '#Gfgrupo8',
+    database: 'bd-Grupo08',
+    host: 'dbgrupo08.database.windows.net',
     dialect: 'mssql',
     xuse_env_variable: 'DATABASE_URL',
     dialectOptions: {

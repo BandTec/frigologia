@@ -149,43 +149,43 @@
                 </div>
                 <div class="cont-freezers">
                     <div class="freezer" id="freezer1">
-                        <img src="img/icons/freezer-blue.png" id="freezer1-img">
+                        <img src="img/icons/freezer-frio.png" id="freezer1-img">
                         <span>Freezer 1</span>
                         <div class="status" id="status-freezer1">
                             <h2>-1°C</h2>
-                            <span>Ideal</span>
+                            <span>Frio</span>
                         </div>
                     </div>
                     <div class="freezer" id="freezer2">
-                        <img src="img/icons/freezer-blue.png" id="freezer2-img">
+                        <img src="img/icons/freezer-frio.png" id="freezer2-img">
                         <span>Freezer 2</span>
                         <div class="status" id="status-freezer2">
                             <h2>-1°C</h2>
-                            <span>Ideal</span>
+                            <span>Frio</span>
                         </div>
                     </div>
                     <div class="freezer" id="freezer3">
-                        <img src="img/icons/freezer-blue.png" id="freezer3-img">
+                        <img src="img/icons/freezer-frio.png" id="freezer3-img">
                         <span>Freezer 3</span>
                         <div class="status" id="status-freezer3">
                             <h2>-1°C</h2>
-                            <span>Ideal</span>
+                            <span>Frio</span>
                         </div>
                     </div>
                     <div class="freezer" id="freezer4">
-                        <img src="img/icons/freezer-blue.png" id="freezer4-img">
+                        <img src="img/icons/freezer-frio.png" id="freezer4-img">
                         <span>Freezer 4</span>
                         <div class="status" id="status-freezer4">
                             <h2>-1°C</h2>
-                            <span>Ideal</span>
+                            <span>Frio</span>
                         </div>
                     </div>
                     <div class="freezer" id="freezer5">
-                        <img src="img/icons/freezer-blue.png" id="freezer5-img">
+                        <img src="img/icons/freezer-frio.png" id="freezer5-img">
                         <span>Freezer 5</span>
                         <div class="status" id="status-freezer5">
                             <h2>-1°C</h2>
-                            <span>Ideal</span>
+                            <span>Frio</span>
                         </div>
                     </div>
                 </div>
@@ -201,35 +201,78 @@
 <script>
     window.onload = selecionar('bar-chart');
 
+    function buscarDadoPorSensor(idSensor) {
+        fetch(`/leituras/ultimas/${idSensor}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    
+                    // Armazenando temperatura retornada do banco
+                    let temp = Number(resposta[0].temp);
+                    let status = validarStatusTemp(temp)
+                    let color = validarParaCores(temp);
+                    // Apresentando a temperatura no freezer do sensor correspondente
+                    // Função validar para cores está utilizando a temperatura para retornar qual cor do status da temperatura
+                    // Função validarStatusTemp valida o status da temperatura (fri, ideal... etc)
+                    document.getElementById(`freezer${idSensor}`).style.borderColor = color; 
+                    document.getElementById(`freezer${idSensor}-img`).src = `img/icons/freezer-${status.toLowerCase()}.png`; 
+                    document.getElementById(`status-freezer${idSensor}`).innerHTML = `
+                        <h2 style="color:${color}">${resposta[0].temp}°C</h2>
+                        <span style="color:${color}">${status}</span>
+                    `;
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
     var freezer_selected = 1;
     var ultimo_registro = [{
-        registro: -1
+        registro: buscarDadoPorSensor(1)
     },
     {
-        registro: -1
+        registro: buscarDadoPorSensor(2)
     },
     {
-        registro: -1
+        registro: buscarDadoPorSensor(3)
     },
     {
-        registro: -1
+        registro: buscarDadoPorSensor(4)
     },
     {
-        registro: -1
+        registro: buscarDadoPorSensor(5)
     }];
 
     document.getElementById(`freezer1`).style.boxShadow = `1px 1px 25px ${validarParaCores(ultimo_registro[4].registro)}`;
 
 
     function validarParaCores(params) {
-        if (params < 0) {
+        if (Number(params) < 0) {
             return '#348899';
-        } else if (params <= 4) {
+        } else if (Number(params) <= 4) {
             return '#37CA33';
-        } else if (params <= 6) {
+        } else if (Number(params) <= 6) {
             return '#F0C908';
-        } else if (params > 6) {
+        } else if (Number(params) > 6) {
             return '#BE2D21';
+        }
+    }
+
+    function validarStatusTemp(params) {
+        if (Number(params) < 0) {
+            return 'Frio';
+        } else if (Number(params) <= 4) {
+            return 'Ideal';
+        } else if (Number(params) <= 6) {
+            return 'Quente';
+        } else if (Number(params) > 6) {
+            return 'Risco';
         }
     }
 
@@ -430,19 +473,19 @@
 
                 if (novoRegistro.leitura < 0) {
 
-                    sortearFreezer(random, novoRegistro.leitura, '#348899', 'Frio', 'blue');
+                    sortearFreezer(random, novoRegistro.leitura, '#348899', 'Frio');
 
                 } else if (novoRegistro.leitura <= 4) {
 
-                    sortearFreezer(random, novoRegistro.leitura, '#37CA33', 'Ideal', 'green');
+                    sortearFreezer(random, novoRegistro.leitura, '#37CA33', 'Ideal');
 
                 } else if (novoRegistro.leitura <= 6) {
 
-                    sortearFreezer(random, novoRegistro.leitura, '#F0C908', 'Quente', 'yellow');
+                    sortearFreezer(random, novoRegistro.leitura, '#F0C908', 'Quente');
 
                 } else if (novoRegistro.leitura > 6) {
 
-                    sortearFreezer(random, novoRegistro.leitura, '#af3b39', 'Risco', 'red');
+                    sortearFreezer(random, novoRegistro.leitura, '#af3b39', 'Risco');
 
                 }
             }
@@ -458,7 +501,7 @@
         }, 2000); // 7000 ms -> 7 segundos
     }
 
-    function sortearFreezer(freezer, registro, cor, status, icon) {
+    function sortearFreezer(freezer, registro, cor, status) {
         var freezer1 = document.getElementById('freezer1');
         var freezer2 = document.getElementById('freezer2');
         var freezer3 = document.getElementById('freezer3');
@@ -479,7 +522,7 @@
 
         if (freezer == 1) {
             freezer1.style.borderColor = cor;
-            img1.src = `img/icons/freezer-${icon}.png`;
+            img1.src = `img/icons/freezer-${status.toLowerCase()}.png`;
             status1.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
             status1.innerHTML += `<p style="color:${cor}">${status}</p>`;
 
@@ -493,7 +536,7 @@
             registro > 6 ? alert("Freezer 1 em temperatura critica !!") : '';
         } else if (freezer == 2) {
             freezer2.style.borderColor = cor;
-            img2.src = `img/icons/freezer-${icon}.png`;
+            img2.src = `img/icons/freezer-${status.toLowerCase()}.png`;
             status2.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
             status2.innerHTML += `<p style="color:${cor}">${status}</p>`;
 
@@ -507,7 +550,7 @@
             registro > 6 ? alert("Freezer 2 em temperatura critica !!") : '';
         } else if (freezer == 3) {
             freezer3.style.borderColor = cor;
-            img3.src = `img/icons/freezer-${icon}.png`;
+            img3.src = `img/icons/freezer-${status.toLowerCase()}.png`;
             status3.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
             status3.innerHTML += `<p style="color:${cor}">${status}</p>`;
 
@@ -521,7 +564,7 @@
             registro > 6 ? alert("Freezer 3 em temperatura critica !!") : '';
         } else if (freezer == 4) {
             freezer4.style.borderColor = cor;
-            img4.src = `img/icons/freezer-${icon}.png`;
+            img4.src = `img/icons/freezer-${status.toLowerCase()}.png`;
             status4.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
             status4.innerHTML += `<p style="color:${cor}">${status}</p>`;
 
@@ -535,7 +578,7 @@
             registro > 6 ? alert("Freezer 4 em temperatura critica !!") : '';
         } else if (freezer == 5) {
             freezer5.style.borderColor = cor;
-            img5.src = `img/icons/freezer-${icon}.png`;
+            img5.src = `img/icons/freezer-${status.toLowerCase()}.png`;
             status5.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
             status5.innerHTML += `<p style="color:${cor}">${status}</p>`;
 
