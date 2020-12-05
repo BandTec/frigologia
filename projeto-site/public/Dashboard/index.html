@@ -160,7 +160,9 @@
 <script>
     window.onload = selecionar('bar-chart');
 
-    // Função que busca todos os dados de todos os freezers em ordem de maior temperatura primeiro e insere na tela 
+    let ids_freezers = [];
+
+    // Função que busca todos os dados de todos os freezers //em ordem de maior temperatura primeiro e insere na tela 
     function buscarFreezers() {
         // Rota de buscar dados do banco
         fetch(`/leituras/ultimas`, { cache: 'no-store' }).then(function (response) {
@@ -173,10 +175,9 @@
                     // console.log(resposta.length)
 
                     // Função para inserir os cards/botões na tela
-                    inserirCards(resposta);
+                    buscarDadosParaCard(resposta);
                     // Função para dar a função de click nos cards/botões
-                    functionClickCard(resposta);
-
+                    // functionClickCard(resposta);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -184,76 +185,71 @@
         })
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
+            });        
     }
 
-
-    function inserirCards(params) {
+    // Função responsável por trazer o ultimo registro do banco de dados, utilizando as rotas do node 
+    // Função recebe um parametro que é referente a fk do sensor cadastrado no banco
+    async function buscarDadosParaCard(params) {
         // Limpa a div onde os freezeres vão aparecer
         document.getElementById('cont-freezers').innerHTML = '';
 
         // For para percorrer todo o JSON retornado da api  
         for (let i = 0; i < params.length; i++) {
+            await buscarDadoSensor(params[i].idFreezer, params[i].idSensor)
+            // console.log(dados);
             // Inserir o card/botão do freezer na tela
             // Id do freezer corresponde ao id do banco 
             // Cores e status são adicionados com a função de validar as temperaturas de acordo com a faixa de alertas 
-            document.getElementById('cont-freezers').innerHTML += `
-                            <div class="freezer" id="freezer${params[i].idFreezer}">
-                                <img src="img/icons/freezer-${validarStatusTemp(params[i].temp).toLowerCase()}.png" id="${params[i].idFreezer}-img">
-                                <span>Freezer ${params[i].idFreezer}</span>
-                                <div class="status" id="status-freezer${params[i].idFreezer}">
-                                    <h2 style="color: ${validarParaCores(params[i].temp)}">${params[i].temp}</h2>
-                                    <span style="color: ${validarParaCores(params[i].temp)}">${validarStatusTemp(params[i].temp)}</span>
-                                </div>
-                            </div>
-                        `;
+            // document.getElementById('cont-freezers').innerHTML += `
+            //                 <div class="freezer" id="freezer${dado[i].idFreezer}">
+            //                     <img src="img/icons/freezer-${validarStatusTemp(dado[i].temp).toLowerCase()}.png" id="${dado[i].idFreezer}-img">
+            //                     <span>Freezer ${dado[i].idFreezer}</span>
+            //                     <div class="status" id="status-freezer${dado[i].idFreezer}">
+            //                         <h2 style="color: ${validarParaCores(dado[i].temp)}">${dado[i].temp}</h2>
+            //                         <span style="color: ${validarParaCores(dado[i].temp)}">${validarStatusTemp(dado[i].temp)}</span>
+            //                     </div>
+            //                 </div>
+            //             `;
 
             // Adicionar a borda do card de acordo com o status dele 
-            document.getElementById(`freezer${params[i].idFreezer}`).style.borderColor = `${validarParaCores(params[i].temp)}`;
+            // document.getElementById(`freezer${params[i].idFreezer}`).style.borderColor = `${validarParaCores(params[i].temp)}`;
         }
-
         // Adicionando a sombra no primeiro botão
-        document.getElementById(`freezer${params[0].idFreezer}`).style.boxShadow = `1px 1px 25px ${validarParaCores(params[0].temp)}`;
+        // document.getElementById(`freezer${params[0].idFreezer}`).style.boxShadow = `1px 1px 25px ${validarParaCores(params[0].temp)}`;
     }
 
-    function functionClickCard(params) {
-
-        for (let i = 0; i < params.length; i++) {
-            // Adiciona a função de click nos botões
-            console.log(`freezer${params[i].idFreezer}`)
-            document.getElementById(`freezer${params[i].idFreezer}`).onclick = function () {
-                alert('(barulinho do notebook do arthur)')
-            }
-        }
-    }
-
-    // Função responsável por trazer o ultimo registro do banco de dados, utilizando as rotas do node 
-    // Função recebe um parametro que é referente a fk do sensor cadastrado no banco
-    function buscarDadoPorSensor(idSensor) {
-        fetch(`/leituras/ultima-leitura/${idSensor}`, { cache: 'no-store' }).then(function (response) {
+    async function buscarDadoSensor(idFreezer, idSensor) {
+        await fetch(`/leituras/ultima-leitura/${idFreezer}${idSensor}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
+                    // console.log(resposta);
 
-                    // Armazenando temperatura retornada do banco
-                    let temp = Number(resposta[0].temp);
-                    // Armazena na variavel o status da temperatura, (A Função faz todas as validações especificadas nas faixas de alerta)
-                    let status = validarStatusTemp(temp)
-                    // Armazena na variavel a cor do status da temperatura, (A Função faz todas as validações especificadas nas faixas de alerta)
-                    let color = validarParaCores(temp);
-                    // Apresentando a temperatura no freezer do sensor correspondente
-                    // Função validar para cores está utilizando a temperatura para retornar qual cor do status da temperatura
-                    // Função validarStatusTemp valida o status da temperatura (frio, ideal... etc)
-                    document.getElementById(`freezer${idSensor}`).style.borderColor = color;
-                    // Atualizando o src do icone com o status da temperatura
-                    // toLowerCase está sendo utilizado para deixar o status com todas as letras minúsculas, para ficar igual ao nome do icone 
-                    document.getElementById(`freezer${idSensor}-img`).src = `img/icons/freezer-${status.toLowerCase()}.png`;
-                    // Atualizando a descrição dos freezeres com a nova temperatura e o novo status
-                    document.getElementById(`status-freezer${idSensor}`).innerHTML = `
-                        <h2 style="color:${color}">${resposta[0].temp}°C</h2>
-                        <span style="color:${color}">${status}</span>
-                    `;
+                    ids_freezers.push(`freezer${resposta[0].idFreezer}`);
+                    // console.log(ids_freezers)
+                    inserirCard(resposta);
+                    // functionClickCard(resposta)
+
+                    // // Armazenando temperatura retornada do banco
+                    // let temp = Number(resposta[0].temp);
+                    // // Armazena na variavel o status da temperatura, (A Função faz todas as validações especificadas nas faixas de alerta)
+                    // let status = validarStatusTemp(temp)
+                    // // Armazena na variavel a cor do status da temperatura, (A Função faz todas as validações especificadas nas faixas de alerta)
+                    // let color = validarParaCores(temp);
+                    // // Apresentando a temperatura no freezer do sensor correspondente
+                    // // Função validar para cores está utilizando a temperatura para retornar qual cor do status da temperatura
+                    // // Função validarStatusTemp valida o status da temperatura (frio, ideal... etc)
+                    // document.getElementById(`freezer${idSensor}`).style.borderColor = color;
+                    // // Atualizando o src do icone com o status da temperatura
+                    // // toLowerCase está sendo utilizado para deixar o status com todas as letras minúsculas, para ficar igual ao nome do icone 
+                    // document.getElementById(`freezer${idSensor}-img`).src = `img/icons/freezer-${status.toLowerCase()}.png`;
+                    // // Atualizando a descrição dos freezeres com a nova temperatura e o novo status
+                    // document.getElementById(`status-freezer${idSensor}`).innerHTML = `
+                    //     <h2 style="color:${color}">${resposta[0].temp}°C</h2>
+                    //     <span style="color:${color}">${status}</span>
+                    // `;
 
                 });
             } else {
@@ -265,24 +261,88 @@
             });
     }
 
-    var freezer_selected = 1;
-    var ultimo_registro = [{
-        registro: buscarDadoPorSensor(6)
-    },
-    {
-        registro: buscarDadoPorSensor(7)
-    },
-    {
-        registro: buscarDadoPorSensor(8)
-    },
-    {
-        registro: buscarDadoPorSensor(9)
-    },
-    {
-        registro: buscarDadoPorSensor(10)
-    }];
+    function inserirCard(params) {
+        // Inserir o card / botão do freezer na tela
+        // Id do freezer corresponde ao id do banco 
+        // Cores e status são adicionados com a função de validar as temperaturas de acordo com a faixa de alertas
+        document.getElementById('cont-freezers').innerHTML += `
+                            <div class="freezer" id="freezer${params[0].idFreezer}">
+                                <img src="img/icons/freezer-${validarStatusTemp(params[0].temp).toLowerCase()}.png" id="${params[0].idFreezer}-img">
+                                <span>Freezer ${params[0].idFreezer}</span>
+                                <div class="status" id="status-freezer${params[0].idFreezer}">
+                                    <h2 style="color: ${validarParaCores(params[0].temp)}">${params[0].temp}</h2>
+                                    <span style="color: ${validarParaCores(params[0].temp)}">${validarStatusTemp(params[0].temp)}</span>
+                                </div>
+                            </div>
+                        `;
+        // Adicionar a borda do card de acordo com o status dele 
+        document.getElementById(`freezer${params[0].idFreezer}`).style.borderColor = `${validarParaCores(params[0].temp)}`;
+        functionClickCard();
+    }
+    function functionClickCard() {
+        // Adiciona a função de click nos botões
+        for(let i = 0; i<ids_freezers.length; i++) {
+            // console.log(ids_freezers[i])
+            document.getElementById(`${ids_freezers[i]}`).onclick = function () {
+                alert('(barulinho do notebook do arthur)')
+            }
+        }
+    }
 
-    document.getElementById(`freezer1`).style.boxShadow = `1px 1px 25px ${validarParaCores(ultimo_registro[4].registro)}`;
+    // function buscarDadoPorSensor(idSensor) {
+    //     fetch(`/leituras/ultima-leitura/${idSensor}`, { cache: 'no-store' }).then(function (response) {
+    //         if (response.ok) {
+    //             response.json().then(function (resposta) {
+    //                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+    //                 resposta.reverse();
+
+    //                 // Armazenando temperatura retornada do banco
+    //                 let temp = Number(resposta[0].temp);
+    //                 // Armazena na variavel o status da temperatura, (A Função faz todas as validações especificadas nas faixas de alerta)
+    //                 let status = validarStatusTemp(temp)
+    //                 // Armazena na variavel a cor do status da temperatura, (A Função faz todas as validações especificadas nas faixas de alerta)
+    //                 let color = validarParaCores(temp);
+    //                 // Apresentando a temperatura no freezer do sensor correspondente
+    //                 // Função validar para cores está utilizando a temperatura para retornar qual cor do status da temperatura
+    //                 // Função validarStatusTemp valida o status da temperatura (frio, ideal... etc)
+    //                 document.getElementById(`freezer${idSensor}`).style.borderColor = color;
+    //                 // Atualizando o src do icone com o status da temperatura
+    //                 // toLowerCase está sendo utilizado para deixar o status com todas as letras minúsculas, para ficar igual ao nome do icone 
+    //                 document.getElementById(`freezer${idSensor}-img`).src = `img/icons/freezer-${status.toLowerCase()}.png`;
+    //                 // Atualizando a descrição dos freezeres com a nova temperatura e o novo status
+    //                 document.getElementById(`status-freezer${idSensor}`).innerHTML = `
+    //                     <h2 style="color:${color}">${resposta[0].temp}°C</h2>
+    //                     <span style="color:${color}">${status}</span>
+    //                 `;
+
+    //             });
+    //         } else {
+    //             console.error('Nenhum dado encontrado ou erro na API');
+    //         }
+    //     })
+    //         .catch(function (error) {
+    //             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    //         });
+    // }
+
+    // var freezer_selected = 1;
+    // var ultimo_registro = [{
+    //     registro: sortearTemperatura()//buscarDadoPorSensor(6)
+    // },
+    // {
+    //     registro: sortearTemperatura()//buscarDadoPorSensor(7)
+    // },
+    // {
+    //     registro: sortearTemperatura()//buscarDadoPorSensor(8)
+    // },
+    // {
+    //     registro: sortearTemperatura()//buscarDadoPorSensor(9)
+    // },
+    // {
+    //     registro: sortearTemperatura()//buscarDadoPorSensor(10)
+    // }];
+
+    // document.getElementById(`freezer1`).style.boxShadow = `1px 1px 25px ${validarParaCores(ultimo_registro[4].registro)}`;
 
     // função realiza as validações das faixas de alerta, retornando a cor do status
     function validarParaCores(params) {
@@ -309,61 +369,61 @@
         }
     }
 
-    function mudarCoresGrafico(cor) {
-        config.data.datasets[0].backgroundColor = cor;
-        config.data.datasets[0].borderColor = cor;
-    }
+    // function mudarCoresGrafico(cor) {
+    //     config.data.datasets[0].backgroundColor = cor;
+    //     config.data.datasets[0].borderColor = cor;
+    // }
 
 
-    function toogleShadow(f_selected, registro) {
-        document.getElementById(`freezer${f_selected}`).style.boxShadow = `none`;
-        document.getElementById(`freezer${f_selected}`).style.boxShadow = `1px 1px 25px ${validarParaCores(registro)}`;
-    }
+    // function toogleShadow(f_selected, registro) {
+    //     document.getElementById(`freezer${f_selected}`).style.boxShadow = `none`;
+    //     document.getElementById(`freezer${f_selected}`).style.boxShadow = `1px 1px 25px ${validarParaCores(registro)}`;
+    // }
 
-    function selectFreezer(freezer, f_selected, ultimo_registo_position) {
-        document.getElementById(`freezer${freezer}`).style.boxShadow = 'none';
-        freezer_selected = f_selected;
-        toogleShadow(f_selected, ultimo_registro[ultimo_registo_position].registro)
-        changeSensor(ultimo_registo_position);
-    };
+    // function selectFreezer(freezer, f_selected, ultimo_registo_position) {
+    //     document.getElementById(`freezer${freezer}`).style.boxShadow = 'none';
+    //     freezer_selected = f_selected;
+    //     toogleShadow(f_selected, ultimo_registro[ultimo_registo_position].registro)
+    //     changeSensor(ultimo_registo_position);
+    // };
 
-    document.getElementById('freezer1').onclick = function () {
-        sec_graphic.style.display = 'flex';
-        sec_graphic.style.animationName = 'sidein';
-        mudarCoresGrafico(validarParaCores(ultimo_registro[0].registro));
-        selectFreezer(freezer_selected, 1, 0);
-        id_close.style.display = 'block';
-    }
-    document.getElementById('freezer2').onclick = function () {
-        sec_graphic.style.display = 'flex';
-        sec_graphic.style.animationName = 'sidein';
-        mudarCoresGrafico(validarParaCores(ultimo_registro[1].registro));
-        selectFreezer(freezer_selected, 2, 1);
-        id_close.style.display = 'block';
-    }
-    document.getElementById('freezer3').onclick = function () {
-        sec_graphic.style.display = 'flex';
-        sec_graphic.style.animationName = 'sidein';
-        mudarCoresGrafico(validarParaCores(ultimo_registro[2].registro));
-        selectFreezer(freezer_selected, 3, 2);
-        id_close.style.display = 'block';
-    }
+    // document.getElementById('freezer1').onclick = function () {
+    //     sec_graphic.style.display = 'flex';
+    //     sec_graphic.style.animationName = 'sidein';
+    //     mudarCoresGrafico(validarParaCores(ultimo_registro[0].registro));
+    //     selectFreezer(freezer_selected, 1, 0);
+    //     id_close.style.display = 'block';
+    // }
+    // document.getElementById('freezer2').onclick = function () {
+    //     sec_graphic.style.display = 'flex';
+    //     sec_graphic.style.animationName = 'sidein';
+    //     mudarCoresGrafico(validarParaCores(ultimo_registro[1].registro));
+    //     selectFreezer(freezer_selected, 2, 1);
+    //     id_close.style.display = 'block';
+    // }
+    // document.getElementById('freezer3').onclick = function () {
+    //     sec_graphic.style.display = 'flex';
+    //     sec_graphic.style.animationName = 'sidein';
+    //     mudarCoresGrafico(validarParaCores(ultimo_registro[2].registro));
+    //     selectFreezer(freezer_selected, 3, 2);
+    //     id_close.style.display = 'block';
+    // }
 
-    document.getElementById('freezer4').onclick = function () {
-        sec_graphic.style.display = 'flex';
-        sec_graphic.style.animationName = 'sidein';
-        mudarCoresGrafico(validarParaCores(ultimo_registro[3].registro));
-        selectFreezer(freezer_selected, 4, 3);
-        id_close.style.display = 'block';
-    }
+    // document.getElementById('freezer4').onclick = function () {
+    //     sec_graphic.style.display = 'flex';
+    //     sec_graphic.style.animationName = 'sidein';
+    //     mudarCoresGrafico(validarParaCores(ultimo_registro[3].registro));
+    //     selectFreezer(freezer_selected, 4, 3);
+    //     id_close.style.display = 'block';
+    // }
 
-    document.getElementById('freezer5').onclick = function () {
-        sec_graphic.style.display = 'flex';
-        sec_graphic.style.animationName = 'sidein';
-        mudarCoresGrafico(validarParaCores(ultimo_registro[4].registro));
-        selectFreezer(freezer_selected, 5, 4);
-        id_close.style.display = 'block';
-    }
+    // document.getElementById('freezer5').onclick = function () {
+    //     sec_graphic.style.display = 'flex';
+    //     sec_graphic.style.animationName = 'sidein';
+    //     mudarCoresGrafico(validarParaCores(ultimo_registro[4].registro));
+    //     selectFreezer(freezer_selected, 5, 4);
+    //     id_close.style.display = 'block';
+    // }
 
     document.getElementById('id_close').onclick = function () {
         sec_graphic.style.animationName = 'sideoff';

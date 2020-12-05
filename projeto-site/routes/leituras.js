@@ -13,8 +13,7 @@ router.get('/ultimas', function(req, res, next) {
 	
 	// const instrucaoSql = `select idDados, temp, diames, horario, fkSensor from dados where fkSensor = ${idsensor} order by idDados desc`;
 
-	const instrucaoSql = `select idFreezer, idSensor, idDados, temp, diames, horario, fkEstabelecimento from freezer inner join sensor on fkFreezer = idFreezer
-    inner join dados on fkSensor = idSensor order by dados.temp;
+	const instrucaoSql = `select distinct idFreezer, idSensor from freezer inner join sensor on fkFreezer = idFreezer order by idFreezer desc;
 `;
 
 	sequelize.query(instrucaoSql, {
@@ -30,14 +29,16 @@ router.get('/ultimas', function(req, res, next) {
 	  });
 });
 
-router.get('/ultima-leitura/:idsensor', function(req, res, next) {
+router.get('/ultima-leitura/:idfreezer:idsensor', function(req, res, next) {
 	
 	// quantas são as últimas leituras que quer? 8 está bom?
 	// const limite_linhas = 7;
+	var idfreezer = req.params.idfreezer;
 	var idsensor = req.params.idsensor;
 	// console.log(`Recuperando as últimas ${limite_linhas} leituras`);
 	
-	const instrucaoSql = `select top 1 idDados, temp, diames, horario, fkSensor from dados where fkSensor = ${idsensor} order by idDados desc`;
+	const instrucaoSql = `select top 1 idFreezer, idSensor, idDados, temp, diames, horario, fkEstabelecimento from freezer inner join sensor on fkFreezer = idFreezer
+    inner join dados on fkSensor = idSensor where idFreezer = ${idfreezer} and fkSensor = ${idsensor} order by dados.idDados desc`;
 
 	// const instrucaoSQL = `select * from freezer inner join sensor on fkFreezer = idFreezer
     // inner join dados on fkSensor = idSensor order by dados.temp desc;`;
