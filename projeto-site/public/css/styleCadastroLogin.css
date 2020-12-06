@@ -367,3 +367,13 @@ body {
 .popup .form form #cancelar:hover {
     background-color: #be3d54;
 }
+
+#categoria {
+
+    border-radius: 10px;
+    border: 1px solid #333640;
+    width: 130px;
+    height: 30px;
+    padding-left: 10px;
+
+}

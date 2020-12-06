@@ -35,14 +35,24 @@
 	<div id="popup" class="popup">
 		<div class="form">
 
-			<h2>Cadastro</h2>
+			<h2>Cadastro de estabelecimento</h2>
 			<div id="div-img"><img src="img/frigologo.png" id="img" alt=""></div>
 			<form>
-				<input type="text" placeholder="Nome" />
-				<input type="text" placeholder="Local" />
-				<input type="email" placeholder="Email" />
-				<input type="password" placeholder="Senha" />
-				<input type="password" placeholder="Repetir senha" />
+				<input name="nomeEstabelecimento" type="text" placeholder="Nome" />
+				<p>Categoria</p>
+				<select name="categoria" id="categoria">
+
+					<option value="supermercado">Supermercado</option>
+					<option value="açougue">Açougue</option>
+					<option value="hipermercado">Hipermercado</option>
+					<option value="armazem">Armazem</option>
+		
+				</select> <br><br>
+
+				<input name="cnpj" type="text" placeholder="CNPJ" />
+				<input name="rua" type="text" placeholder="Rua" />
+				<input  name="numero" type="number" placeholder="Numero" />
+	
 				<input type="button" onclick="cadastro()" id="cadastrar" value="Cadastrar" />
 				<input type="button" onclick="fechar()" id="cancelar" value="Cancelar" />
 
