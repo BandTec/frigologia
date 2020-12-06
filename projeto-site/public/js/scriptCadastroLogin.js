@@ -25,19 +25,21 @@ function abrir() {
 function fechar() {
     form.style.display = '1';
     popup.style.opacity = '0';
+    popup2.style.opacity = '0';
     setTimeout(() => {
         popup.style.display = 'none';
+        popup2.style.display = 'none';
         form.style.display = 'block';
     }, 200);
 }
 function cadastro() {
-    form.style.display = '1';
-    popup.style.opacity = '0';
+    popup.style.display = 'none';
+    popup2.style.display = 'block';
     setTimeout(() => {
-        popup.style.display = 'none';
-        form.style.display = 'block';
+        popup2.style.opacity = '1';
+        popup.style.display = '0';
     }, 200);
-    alert("usuario cadastrado com sucesso !!");
+    
 }
 
 function limpar() {
