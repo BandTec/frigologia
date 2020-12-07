@@ -106,9 +106,17 @@
 
 <script>
     window.onload = selecionar('bar-chart');
+    window.onload = sessao();
     window.onload = buscarFreezers();
 
     let ids_freezers = [];
+
+    function sessao() {
+        let status = sessionStorage.getItem('acesso');
+        if(!status) {
+            window.location = '../tela_login.html';
+        }
+    }
 
     // Função que busca todos os dados de todos os freezers //em ordem de maior temperatura primeiro e insere na tela 
     function buscarFreezers() {
