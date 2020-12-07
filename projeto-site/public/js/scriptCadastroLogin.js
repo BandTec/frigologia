@@ -19,9 +19,10 @@ function abrir() {
     setTimeout(() => {
         popup.style.opacity = '1';
         form.style.display = '0';
-    }, 150);
+    }, 100);
 
 }
+
 function fechar() {
     form.style.display = '1';
     popup.style.opacity = '0';
@@ -30,13 +31,22 @@ function fechar() {
         form.style.display = 'block';
     }, 150);
 }
+
 function cadastro() {
-    form.style.opacity = '1';
-    popup.style.display = '0';
-    setTimeout(() => {
-        popup.style.display = 'none';
-        form.style.display = 'block';
-    }, 150);
+    
+    if (nome.value == '' || cnpj.value == '' || rua.value == '' || num.value == '') {
+        alert("Preencha todos os campos!")
+
+    } else {
+        mens.innerHTML = `Estabeleciemento cadastrado com sucesso, nossa equipe entrará em contato em breve!`
+    }
+    
+    // form.style.opacity = '1';
+    // popup.style.display = '0';
+    // setTimeout(() => {
+    //     popup.style.display = 'none';
+    //     form.style.display = 'block';
+    // }, 150);
     
 }
 

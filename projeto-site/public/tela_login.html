@@ -32,13 +32,15 @@
 	</div>
 
 	<!-- A div popup fica 'invisivel até chamar a ação' -->
+	
 	<div id="popup" class="popup">
+		
 		<div class="form">
 
 			<h2>Cadastro de estabelecimento</h2>
 			<div id="div-img"><img src="img/frigologo.png" id="img" alt=""></div>
 			<form>
-				<input name="nomeEstabelecimento" type="text" placeholder="Nome do estabelecimento" />
+				<input id="nome" name="nomeEstabelecimento" type="text" placeholder="Nome do estabelecimento" />
 				<p>Categoria</p>
 				<select name="categoria" id="categoria">
 
@@ -49,17 +51,22 @@
 		
 				</select> <br><br>
 
-				<input name="cnpj" type="text" placeholder="CNPJ" />
-				<input name="rua" type="text" placeholder="Rua" />
-				<input  name="numero" type="number" placeholder="Numero" />
+				<input id="cnpj" name="cnpj" type="text" placeholder="CNPJ" />
+				<input id="rua" name="rua" type="text" placeholder="Rua" />
+				<input id="num" name="numero" type="number" placeholder="Numero" />
 	
 				<input type="button" onclick="cadastro()" id="cadastrar" value="Cadastrar" />
-				<input type="button" onclick="fechar()" id="cancelar" value="Cancelar" />
+				<input type="button" onclick="fechar()" id="cancelar" value="Voltar" />
 
 			</form>
-		
+			
+			<div id="mens"></div>
+			
 		</div>
+
 	</div>
+
+	
 
 </body>
 
