@@ -40,7 +40,10 @@ function cadastro() {
     
 }
 
-function limpar() {
-    usuario.value = '';
-    senha.value = '';
+function fechar1() {
+    email.value = '';
+    senha_perfil.value = '';
+    rep_senha.value = '';
+    fk_Estab.value = '';
+
 }
