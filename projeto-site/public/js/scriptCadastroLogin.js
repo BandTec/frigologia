@@ -13,13 +13,13 @@ function login() {
 // setTimeout ele executa algo depois que o tempo determinado acabar
 // setTimout = ele pega o id, configura a propriedade style e depois configura a opacidade do style
 function abrir() {
-    limpar();
+    // limpar();
     popup.style.display = 'block';
     form.style.display = 'none';
     setTimeout(() => {
         popup.style.opacity = '1';
         form.style.display = '0';
-    }, 200);
+    }, 150);
 
 }
 function fechar() {
@@ -28,7 +28,7 @@ function fechar() {
     setTimeout(() => {
         popup.style.display = 'none';
         form.style.display = 'block';
-    }, 200);
+    }, 150);
 }
 function cadastro() {
     form.style.opacity = '1';
@@ -36,7 +36,7 @@ function cadastro() {
     setTimeout(() => {
         popup.style.display = 'none';
         form.style.display = 'block';
-    }, 200);
+    }, 150);
     
 }
 
