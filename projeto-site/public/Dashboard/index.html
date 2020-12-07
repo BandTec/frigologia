@@ -64,7 +64,7 @@
                 <div class="cont-grafico">
                     <div class="title">
                         <h2>Gráfico do freezer</h2>
-                        <span>Freezer 1</span>
+                        <span id="id_title_freezer"></span>
                     </div>
                     <div class="graphic">
                         <canvas id="c_grafico"></canvas>
@@ -73,7 +73,7 @@
                 <div class="cont-dados">
                     <div class="title">
                         <h2>Últimos registros</h2>
-                        <span>Freezer 1</span>
+                        <span id="id_registros_freezer"></span>
                     </div>
                     <div class="dados">
                         <div class="dado last">
@@ -82,60 +82,7 @@
                             <span>Hora</span>
                             <span>Status</span>
                         </div>
-                        <div class="dado">
-                            <span>10</span>
-                            <span>15/11/20</span>
-                            <span>12:00</span>
-                            <span>Ideal</span>
-                        </div>
-                        <div class="dado">
-                            <span>10</span>
-                            <span>15/11/20</span>
-                            <span>12:00</span>
-                            <span>Ideal</span>
-                        </div>
-                        <div class="dado">
-                            <span>10</span>
-                            <span>15/11/20</span>
-                            <span>12:00</span>
-                            <span>Ideal</span>
-                        </div>
-                        <div class="dado">
-                            <span>10</span>
-                            <span>15/11/20</span>
-                            <span>12:00</span>
-                            <span>Ideal</span>
-                        </div>
-                        <div class="dado">
-                            <span>10</span>
-                            <span>15/11/20</span>
-                            <span>12:00</span>
-                            <span>Ideal</span>
-                        </div>
-                        <div class="dado">
-                            <span>10</span>
-                            <span>15/11/20</span>
-                            <span>12:00</span>
-                            <span>Ideal</span>
-                        </div>
-                        <div class="dado">
-                            <span>10</span>
-                            <span>15/11/20</span>
-                            <span>12:00</span>
-                            <span>Ideal</span>
-                        </div>
-                        <div class="dado">
-                            <span>10</span>
-                            <span>15/11/20</span>
-                            <span>12:00</span>
-                            <span>Ideal</span>
-                        </div>
-                        <div class="dado">
-                            <span>10</span>
-                            <span>15/11/20</span>
-                            <span>12:00</span>
-                            <span>Ideal</span>
-                        </div>
+                        <div id="dados"></div>
                     </div>
                 </div>
             </section>
@@ -143,7 +90,7 @@
                 <div class="title">
                     <div>
                         <h2>Todos freezers</h2>
-                        <p>Freezer 1 selecionado</p>
+                        <p id="id_freezer_selecionado"></p>
                     </div>
                     <i id="id_close" title="Fechar gráfico" class="fas fa-times fa-lg" style="display: none;"></i>
                 </div>
@@ -159,25 +106,20 @@
 
 <script>
     window.onload = selecionar('bar-chart');
+    window.onload = buscarFreezers();
 
     let ids_freezers = [];
 
     // Função que busca todos os dados de todos os freezers //em ordem de maior temperatura primeiro e insere na tela 
     function buscarFreezers() {
         // Rota de buscar dados do banco
-        fetch(`/leituras/ultimas`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/leituras/freezers`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-
-                    // console.log(resposta)
-                    // console.log(resposta.length)
-
-                    // Função para inserir os cards/botões na tela
+                    // Função que intermedia a busca e a inserção de cada freezer na tela
                     buscarDadosParaCard(resposta);
-                    // Função para dar a função de click nos cards/botões
-                    // functionClickCard(resposta);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -185,7 +127,8 @@
         })
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });        
+            });
+
     }
 
     // Função responsável por trazer o ultimo registro do banco de dados, utilizando as rotas do node 
@@ -194,62 +137,25 @@
         // Limpa a div onde os freezeres vão aparecer
         document.getElementById('cont-freezers').innerHTML = '';
 
-        // For para percorrer todo o JSON retornado da api  
+        // For para percorrer todo o JSON com os freezer e sensores 
+        // Chama a função com a rota para buscar os dados de cada freezer com o seu sensor
         for (let i = 0; i < params.length; i++) {
             await buscarDadoSensor(params[i].idFreezer, params[i].idSensor)
-            // console.log(dados);
-            // Inserir o card/botão do freezer na tela
-            // Id do freezer corresponde ao id do banco 
-            // Cores e status são adicionados com a função de validar as temperaturas de acordo com a faixa de alertas 
-            // document.getElementById('cont-freezers').innerHTML += `
-            //                 <div class="freezer" id="freezer${dado[i].idFreezer}">
-            //                     <img src="img/icons/freezer-${validarStatusTemp(dado[i].temp).toLowerCase()}.png" id="${dado[i].idFreezer}-img">
-            //                     <span>Freezer ${dado[i].idFreezer}</span>
-            //                     <div class="status" id="status-freezer${dado[i].idFreezer}">
-            //                         <h2 style="color: ${validarParaCores(dado[i].temp)}">${dado[i].temp}</h2>
-            //                         <span style="color: ${validarParaCores(dado[i].temp)}">${validarStatusTemp(dado[i].temp)}</span>
-            //                     </div>
-            //                 </div>
-            //             `;
-
-            // Adicionar a borda do card de acordo com o status dele 
-            // document.getElementById(`freezer${params[i].idFreezer}`).style.borderColor = `${validarParaCores(params[i].temp)}`;
         }
-        // Adicionando a sombra no primeiro botão
-        // document.getElementById(`freezer${params[0].idFreezer}`).style.boxShadow = `1px 1px 25px ${validarParaCores(params[0].temp)}`;
     }
 
+    // Busca o ultimo registro de cada freezer
     async function buscarDadoSensor(idFreezer, idSensor) {
         await fetch(`/leituras/ultima-leitura/${idFreezer}${idSensor}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-                    // console.log(resposta);
 
-                    ids_freezers.push(`freezer${resposta[0].idFreezer}`);
-                    // console.log(ids_freezers)
+                    // armazena os Ids dos freezers em um vetor global para ser utilizado posteriormente
+                    ids_freezers.push(resposta[0].idFreezer);
+                    // Função que insere os cards dos freezers na tela
                     inserirCard(resposta);
-                    // functionClickCard(resposta)
-
-                    // // Armazenando temperatura retornada do banco
-                    // let temp = Number(resposta[0].temp);
-                    // // Armazena na variavel o status da temperatura, (A Função faz todas as validações especificadas nas faixas de alerta)
-                    // let status = validarStatusTemp(temp)
-                    // // Armazena na variavel a cor do status da temperatura, (A Função faz todas as validações especificadas nas faixas de alerta)
-                    // let color = validarParaCores(temp);
-                    // // Apresentando a temperatura no freezer do sensor correspondente
-                    // // Função validar para cores está utilizando a temperatura para retornar qual cor do status da temperatura
-                    // // Função validarStatusTemp valida o status da temperatura (frio, ideal... etc)
-                    // document.getElementById(`freezer${idSensor}`).style.borderColor = color;
-                    // // Atualizando o src do icone com o status da temperatura
-                    // // toLowerCase está sendo utilizado para deixar o status com todas as letras minúsculas, para ficar igual ao nome do icone 
-                    // document.getElementById(`freezer${idSensor}-img`).src = `img/icons/freezer-${status.toLowerCase()}.png`;
-                    // // Atualizando a descrição dos freezeres com a nova temperatura e o novo status
-                    // document.getElementById(`status-freezer${idSensor}`).innerHTML = `
-                    //     <h2 style="color:${color}">${resposta[0].temp}°C</h2>
-                    //     <span style="color:${color}">${status}</span>
-                    // `;
 
                 });
             } else {
@@ -261,88 +167,137 @@
             });
     }
 
-    function inserirCard(params) {
+    function inserirCard(resposta) {
         // Inserir o card / botão do freezer na tela
         // Id do freezer corresponde ao id do banco 
         // Cores e status são adicionados com a função de validar as temperaturas de acordo com a faixa de alertas
         document.getElementById('cont-freezers').innerHTML += `
-                            <div class="freezer" id="freezer${params[0].idFreezer}">
-                                <img src="img/icons/freezer-${validarStatusTemp(params[0].temp).toLowerCase()}.png" id="${params[0].idFreezer}-img">
-                                <span>Freezer ${params[0].idFreezer}</span>
-                                <div class="status" id="status-freezer${params[0].idFreezer}">
-                                    <h2 style="color: ${validarParaCores(params[0].temp)}">${params[0].temp}</h2>
-                                    <span style="color: ${validarParaCores(params[0].temp)}">${validarStatusTemp(params[0].temp)}</span>
-                                </div>
-                            </div>
-                        `;
+            <div class="freezer" id="freezer${resposta[0].idFreezer}">
+                <img src="img/icons/freezer-${validarStatusTemp(resposta[0].temp).toLowerCase()}.png" id="${resposta[0].idFreezer}-img">
+                <span>Freezer ${resposta[0].idFreezer}</span>
+                <div class="status" id="status-freezer${resposta[0].idFreezer}">
+                    <h2 style="color: ${validarParaCores(resposta[0].temp)}">${resposta[0].temp}</h2>
+                    <span style="color: ${validarParaCores(resposta[0].temp)}">${validarStatusTemp(resposta[0].temp)}</span>
+                </div>
+            </div>
+        `;
+
+        // Adiciona a sombra no primeiro freezer
+        // if (ids_freezers.length == 1) {
+        //     document.getElementById(`freezer${ids_freezers[0]}`).style.boxShadow = `1px 1px 25px ${validarParaCores(resposta[0].temp)}`;
+        // }
+
         // Adicionar a borda do card de acordo com o status dele 
-        document.getElementById(`freezer${params[0].idFreezer}`).style.borderColor = `${validarParaCores(params[0].temp)}`;
-        functionClickCard();
+        document.getElementById(`freezer${resposta[0].idFreezer}`).style.borderColor = `${validarParaCores(resposta[0].temp)}`;
+
+        // Adiciona a função de click nos cards
+        functionClickCard(resposta);
     }
-    function functionClickCard() {
+    function functionClickCard(resposta) {
         // Adiciona a função de click nos botões
-        for(let i = 0; i<ids_freezers.length; i++) {
-            // console.log(ids_freezers[i])
-            document.getElementById(`${ids_freezers[i]}`).onclick = function () {
-                alert('(barulinho do notebook do arthur)')
+        for (let i = 0; i < ids_freezers.length; i++) {
+            document.getElementById(`freezer${ids_freezers[i]}`).onclick = function () {
+                // Faz aparecer a section do grafico
+                sec_graphic.style.display = 'flex';
+                sec_graphic.style.animationName = 'sidein';
+
+                buscarDadosPorSensor(ids_freezers[i]);
+                id_close.style.display = 'block';
             }
         }
     }
 
-    // function buscarDadoPorSensor(idSensor) {
-    //     fetch(`/leituras/ultima-leitura/${idSensor}`, { cache: 'no-store' }).then(function (response) {
-    //         if (response.ok) {
-    //             response.json().then(function (resposta) {
-    //                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-    //                 resposta.reverse();
+    // Busca os ultimos registros do freezer
+    function buscarDadosPorSensor(idFreezer) {
+        fetch(`/leituras/ultimas-leituras/${idFreezer}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
 
-    //                 // Armazenando temperatura retornada do banco
-    //                 let temp = Number(resposta[0].temp);
-    //                 // Armazena na variavel o status da temperatura, (A Função faz todas as validações especificadas nas faixas de alerta)
-    //                 let status = validarStatusTemp(temp)
-    //                 // Armazena na variavel a cor do status da temperatura, (A Função faz todas as validações especificadas nas faixas de alerta)
-    //                 let color = validarParaCores(temp);
-    //                 // Apresentando a temperatura no freezer do sensor correspondente
-    //                 // Função validar para cores está utilizando a temperatura para retornar qual cor do status da temperatura
-    //                 // Função validarStatusTemp valida o status da temperatura (frio, ideal... etc)
-    //                 document.getElementById(`freezer${idSensor}`).style.borderColor = color;
-    //                 // Atualizando o src do icone com o status da temperatura
-    //                 // toLowerCase está sendo utilizado para deixar o status com todas as letras minúsculas, para ficar igual ao nome do icone 
-    //                 document.getElementById(`freezer${idSensor}-img`).src = `img/icons/freezer-${status.toLowerCase()}.png`;
-    //                 // Atualizando a descrição dos freezeres com a nova temperatura e o novo status
-    //                 document.getElementById(`status-freezer${idSensor}`).innerHTML = `
-    //                     <h2 style="color:${color}">${resposta[0].temp}°C</h2>
-    //                     <span style="color:${color}">${status}</span>
-    //                 `;
+                    // Chamada da função que adiciona os valores no grafico
+                    setarGrafico(resposta)
+                    // Chamada da função que adiciona os registros na tela
+                    setarRegistros(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
 
-    //             });
-    //         } else {
-    //             console.error('Nenhum dado encontrado ou erro na API');
-    //         }
-    //     })
-    //         .catch(function (error) {
-    //             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-    //         });
-    // }
+    // Seta os registros no grafico
+    function setarGrafico(dados) {
+        // limpa os registros já existentes no grafico
+        var length_array = config.data.labels.length;
+        config.data.labels.splice(0, length_array);
+        config.data.datasets[0].data = [];
 
-    // var freezer_selected = 1;
-    // var ultimo_registro = [{
-    //     registro: sortearTemperatura()//buscarDadoPorSensor(6)
-    // },
-    // {
-    //     registro: sortearTemperatura()//buscarDadoPorSensor(7)
-    // },
-    // {
-    //     registro: sortearTemperatura()//buscarDadoPorSensor(8)
-    // },
-    // {
-    //     registro: sortearTemperatura()//buscarDadoPorSensor(9)
-    // },
-    // {
-    //     registro: sortearTemperatura()//buscarDadoPorSensor(10)
-    // }];
+        // seta os novos registros vindos do banco
+        for (let i = dados.length - 1; i >= 0; i--) {
+            console.log(i)
+            config.data.labels.push(dados[i].horario);  // incluir um novo momento
+            config.data.datasets[0].data.push(dados[i].temp);  // incluir uma nova leitura
+        }
 
-    // document.getElementById(`freezer1`).style.boxShadow = `1px 1px 25px ${validarParaCores(ultimo_registro[4].registro)}`;
+        // muda as cores do grafico de acordo com a faixa de alerta
+        mudarCoresGrafico(validarParaCores(dados[0].temp));
+
+        // atualiza o grafico
+        window.graficoLinha.update();
+
+        // Seleciona Adiciona a shadow no freezer clicado
+        selecionarFreezer(dados);
+    }
+
+    // Insere os registros na tela
+    function setarRegistros(dados) {
+        // limpa a parte dos registros
+        document.getElementById(`dados`).innerHTML = '';
+
+        // insere novos registros
+        for (let i = 0; i < dados.length; i++) {
+            document.getElementById(`dados`).innerHTML += `
+                <div class="dado">
+                    <span>${dados[i].idDados}</span>
+                    <span>${dados[i].diames}</span>
+                    <span>${dados[i].horario}</span>
+                    <span>${validarStatusTemp(dados[i].temp)}</span>
+                </div>
+            `;
+        }
+    }
+
+    // "Seleciona o freezer"
+    function selecionarFreezer(dados) {
+        // limpa a shadow dos botoes
+        limparSelecaoFreezers();
+        
+        // adiciona os textos nos titulos selecionados 
+        id_freezer_selecionado.innerText = `Freezer ${dados[0].idFreezer} selecionado`;
+        id_title_freezer.innerText = `Freezer ${dados[0].idFreezer}`;
+        id_registros_freezer.innerText = `Freezer ${dados[0].idFreezer}`;
+
+        // Adiciona a sombra de  acordo com a faixa de alertas
+        document.getElementById(`freezer${dados[0].idFreezer}`).style.boxShadow = `1px 1px 25px ${validarParaCores(dados[0].temp)}`;
+
+    }
+
+    // limpa a seleção dos freezers
+    function limparSelecaoFreezers() {
+        //limpa os titulos
+        id_freezer_selecionado.innerText = ``;
+        id_title_freezer.innerText = ``;
+        id_registros_freezer.innerText = ``;
+        
+        // limpa a seleção dos cards
+        for (let i = 0; i < ids_freezers.length; i++) {
+            document.getElementById(`freezer${ids_freezers[i]}`).style.boxShadow = `none`;
+        }
+    }
 
     // função realiza as validações das faixas de alerta, retornando a cor do status
     function validarParaCores(params) {
@@ -369,66 +324,22 @@
         }
     }
 
-    // function mudarCoresGrafico(cor) {
-    //     config.data.datasets[0].backgroundColor = cor;
-    //     config.data.datasets[0].borderColor = cor;
-    // }
+    // muda as cores do grafico 
+    function mudarCoresGrafico(cor) {
+        config.data.datasets[0].backgroundColor = cor;
+        config.data.datasets[0].borderColor = cor;
+    }
 
-
-    // function toogleShadow(f_selected, registro) {
-    //     document.getElementById(`freezer${f_selected}`).style.boxShadow = `none`;
-    //     document.getElementById(`freezer${f_selected}`).style.boxShadow = `1px 1px 25px ${validarParaCores(registro)}`;
-    // }
-
-    // function selectFreezer(freezer, f_selected, ultimo_registo_position) {
-    //     document.getElementById(`freezer${freezer}`).style.boxShadow = 'none';
-    //     freezer_selected = f_selected;
-    //     toogleShadow(f_selected, ultimo_registro[ultimo_registo_position].registro)
-    //     changeSensor(ultimo_registo_position);
-    // };
-
-    // document.getElementById('freezer1').onclick = function () {
-    //     sec_graphic.style.display = 'flex';
-    //     sec_graphic.style.animationName = 'sidein';
-    //     mudarCoresGrafico(validarParaCores(ultimo_registro[0].registro));
-    //     selectFreezer(freezer_selected, 1, 0);
-    //     id_close.style.display = 'block';
-    // }
-    // document.getElementById('freezer2').onclick = function () {
-    //     sec_graphic.style.display = 'flex';
-    //     sec_graphic.style.animationName = 'sidein';
-    //     mudarCoresGrafico(validarParaCores(ultimo_registro[1].registro));
-    //     selectFreezer(freezer_selected, 2, 1);
-    //     id_close.style.display = 'block';
-    // }
-    // document.getElementById('freezer3').onclick = function () {
-    //     sec_graphic.style.display = 'flex';
-    //     sec_graphic.style.animationName = 'sidein';
-    //     mudarCoresGrafico(validarParaCores(ultimo_registro[2].registro));
-    //     selectFreezer(freezer_selected, 3, 2);
-    //     id_close.style.display = 'block';
-    // }
-
-    // document.getElementById('freezer4').onclick = function () {
-    //     sec_graphic.style.display = 'flex';
-    //     sec_graphic.style.animationName = 'sidein';
-    //     mudarCoresGrafico(validarParaCores(ultimo_registro[3].registro));
-    //     selectFreezer(freezer_selected, 4, 3);
-    //     id_close.style.display = 'block';
-    // }
-
-    // document.getElementById('freezer5').onclick = function () {
-    //     sec_graphic.style.display = 'flex';
-    //     sec_graphic.style.animationName = 'sidein';
-    //     mudarCoresGrafico(validarParaCores(ultimo_registro[4].registro));
-    //     selectFreezer(freezer_selected, 5, 4);
-    //     id_close.style.display = 'block';
-    // }
-
+    // Função de fechar o grafico
     document.getElementById('id_close').onclick = function () {
+        // Fecha o grafico
         sec_graphic.style.animationName = 'sideoff';
         setTimeout(() => sec_graphic.style.display = 'none', 1000)
+
+        // Tira o botão de fechar
         id_close.style.display = 'none';
+        // Limpa a seleção dos freezers
+        limparSelecaoFreezers();
     }
 
     var config = {
@@ -476,279 +387,279 @@
         }
     };
 
-    // esse "sortearTemperatura()" será desnecessário quando usarmos o backend futuramente
-    function sortearTemperatura() {
-        var limiteMin = -2;
-        var limiteMax = 8;
-        var minimoAbsoluto = Math.abs(limiteMin);
-        var random = (Math.random() * (minimoAbsoluto + limiteMax) - minimoAbsoluto).toFixed(1);
-        return random;
-    }
+    // // esse "sortearTemperatura()" será desnecessário quando usarmos o backend futuramente
+    // function sortearTemperatura() {
+    //     var limiteMin = -2;
+    //     var limiteMax = 8;
+    //     var minimoAbsoluto = Math.abs(limiteMin);
+    //     var random = (Math.random() * (minimoAbsoluto + limiteMax) - minimoAbsoluto).toFixed(1);
+    //     return random;
+    // }
 
-    function recuperarDadosIniciais() {
+    // function recuperarDadosIniciais() {
 
-        // esse "registros" será recuperado do backend futuramente
-        var registros = [
-            {
-                momento: '00:03:42',
-                leitura: sortearTemperatura()
-            },
-            {
-                momento: '00:03:52',
-                leitura: sortearTemperatura()
-            },
-            {
-                momento: '00:04:02',
-                leitura: sortearTemperatura()
-            },
-            {
-                momento: '00:04:12',
-                leitura: sortearTemperatura()
-            },
-            {
-                momento: '00:04:22',
-                leitura: sortearTemperatura()
-            },
-            {
-                momento: '00:04:32',
-                leitura: sortearTemperatura()
-            },
-            {
-                momento: '00:04:42',
-                leitura: sortearTemperatura()
-            }
-        ];
+    //     // esse "registros" será recuperado do backend futuramente
+    //     var registros = [
+    //         {
+    //             momento: '00:03:42',
+    //             leitura: sortearTemperatura()
+    //         },
+    //         {
+    //             momento: '00:03:52',
+    //             leitura: sortearTemperatura()
+    //         },
+    //         {
+    //             momento: '00:04:02',
+    //             leitura: sortearTemperatura()
+    //         },
+    //         {
+    //             momento: '00:04:12',
+    //             leitura: sortearTemperatura()
+    //         },
+    //         {
+    //             momento: '00:04:22',
+    //             leitura: sortearTemperatura()
+    //         },
+    //         {
+    //             momento: '00:04:32',
+    //             leitura: sortearTemperatura()
+    //         },
+    //         {
+    //             momento: '00:04:42',
+    //             leitura: sortearTemperatura()
+    //         }
+    //     ];
 
-        var contador = 0;
+    //     var contador = 0;
 
-        // registros.length é a quantidade de itens em "registros"
-        while (contador < registros.length) {
+    //     // registros.length é a quantidade de itens em "registros"
+    //     while (contador < registros.length) {
 
-            config.data.labels.push(registros[contador].momento);  // incluir um novo momento
-            config.data.datasets[0].data.push(registros[contador].leitura);  // incluir uma nova leitura
+    //         config.data.labels.push(registros[contador].momento);  // incluir um novo momento
+    //         config.data.datasets[0].data.push(registros[contador].leitura);  // incluir uma nova leitura
 
-            contador++;
-        }
+    //         contador++;
+    //     }
 
-    }
+    // }
 
-    function receberNovasLeituras() {
-        setTimeout(() => {
+    // function receberNovasLeituras() {
+    //     setTimeout(() => {
 
-            // esses "agora" etc até "momentos" serão desnecessários quando usarmos o backend futuramente
-            var agora = new Date();
-            var hora = agora.getHours();
-            var minuto = agora.getMinutes();
-            var segundo = agora.getSeconds();
-            var momento = `${hora > 9 ? '' : '0'}${hora}:${minuto > 9 ? '' : '0'}${minuto}:${segundo > 9 ? '' : '0'}${segundo}`;
+    //         // esses "agora" etc até "momentos" serão desnecessários quando usarmos o backend futuramente
+    //         var agora = new Date();
+    //         var hora = agora.getHours();
+    //         var minuto = agora.getMinutes();
+    //         var segundo = agora.getSeconds();
+    //         var momento = `${hora > 9 ? '' : '0'}${hora}:${minuto > 9 ? '' : '0'}${minuto}:${segundo > 9 ? '' : '0'}${segundo}`;
 
-            var random = parseInt(Math.random() * 5);
+    //         var random = parseInt(Math.random() * 5);
 
-            // esse "novoRegistro" será recuperado do backend futuramente
-            var novoRegistro = {
-                momento: momento,
-                leitura: sortearTemperatura()
-            };
+    //         // esse "novoRegistro" será recuperado do backend futuramente
+    //         var novoRegistro = {
+    //             momento: momento,
+    //             leitura: sortearTemperatura()
+    //         };
 
-            // tirando e colocando valores no gráfico
-
-
-            if (random == freezer_selected) {
-                config.data.labels.shift(); // apagar o primeiro
-                config.data.labels.push(novoRegistro.momento); // incluir um novo momento
-                config.data.datasets[0].data.shift();  // apagar o primeiro
-                config.data.datasets[0].data.push(novoRegistro.leitura); // incluir uma nova leitura                
-
-            } {
-
-                if (novoRegistro.leitura < 0) {
-
-                    sortearFreezer(random, novoRegistro.leitura, '#348899', 'Frio');
-
-                } else if (novoRegistro.leitura <= 4) {
-
-                    sortearFreezer(random, novoRegistro.leitura, '#37CA33', 'Ideal');
-
-                } else if (novoRegistro.leitura <= 6) {
-
-                    sortearFreezer(random, novoRegistro.leitura, '#F0C908', 'Quente');
-
-                } else if (novoRegistro.leitura > 6) {
-
-                    sortearFreezer(random, novoRegistro.leitura, '#af3b39', 'Risco');
-
-                }
-            }
+    //         // tirando e colocando valores no gráfico
 
 
+    //         if (random == freezer_selected) {
+    //             config.data.labels.shift(); // apagar o primeiro
+    //             config.data.labels.push(novoRegistro.momento); // incluir um novo momento
+    //             config.data.datasets[0].data.shift();  // apagar o primeiro
+    //             config.data.datasets[0].data.push(novoRegistro.leitura); // incluir uma nova leitura                
 
-            // agendar a chamada da mesma função para daqui a 7 segundos
-            receberNovasLeituras();
+    //         } {
 
-            // Atualiza o gráfico
-            window.graficoLinha.update();
+    //             if (novoRegistro.leitura < 0) {
 
-        }, 2000); // 7000 ms -> 7 segundos
-    }
+    //                 sortearFreezer(random, novoRegistro.leitura, '#348899', 'Frio');
 
-    function sortearFreezer(freezer, registro, cor, status) {
-        var freezer1 = document.getElementById('freezer1');
-        var freezer2 = document.getElementById('freezer2');
-        var freezer3 = document.getElementById('freezer3');
-        var freezer4 = document.getElementById('freezer4');
-        var freezer5 = document.getElementById('freezer5');
+    //             } else if (novoRegistro.leitura <= 4) {
 
-        var img1 = document.getElementById('freezer1-img');
-        var img2 = document.getElementById('freezer2-img');
-        var img3 = document.getElementById('freezer3-img');
-        var img4 = document.getElementById('freezer4-img');
-        var img5 = document.getElementById('freezer5-img');
+    //                 sortearFreezer(random, novoRegistro.leitura, '#37CA33', 'Ideal');
 
-        var status1 = document.getElementById('status-freezer1');
-        var status2 = document.getElementById('status-freezer2');
-        var status3 = document.getElementById('status-freezer3');
-        var status4 = document.getElementById('status-freezer4');
-        var status5 = document.getElementById('status-freezer5');
+    //             } else if (novoRegistro.leitura <= 6) {
 
-        if (freezer == 1) {
-            freezer1.style.borderColor = cor;
-            img1.src = `img/icons/freezer-${status.toLowerCase()}.png`;
-            status1.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
-            status1.innerHTML += `<p style="color:${cor}">${status}</p>`;
+    //                 sortearFreezer(random, novoRegistro.leitura, '#F0C908', 'Quente');
 
-            if (freezer == freezer_selected) {
-                toogleShadow(1, registro);
-                mudarCoresGrafico(cor);
-            }
+    //             } else if (novoRegistro.leitura > 6) {
 
-            ultimo_registro[0].registro = registro;
+    //                 sortearFreezer(random, novoRegistro.leitura, '#af3b39', 'Risco');
 
-            registro > 6 ? alert("Freezer 1 em temperatura critica !!") : '';
-        } else if (freezer == 2) {
-            freezer2.style.borderColor = cor;
-            img2.src = `img/icons/freezer-${status.toLowerCase()}.png`;
-            status2.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
-            status2.innerHTML += `<p style="color:${cor}">${status}</p>`;
-
-            if (freezer == freezer_selected) {
-                toogleShadow(2, registro);
-                mudarCoresGrafico(cor);
-            }
-
-            ultimo_registro[1].registro = registro;
-
-            registro > 6 ? alert("Freezer 2 em temperatura critica !!") : '';
-        } else if (freezer == 3) {
-            freezer3.style.borderColor = cor;
-            img3.src = `img/icons/freezer-${status.toLowerCase()}.png`;
-            status3.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
-            status3.innerHTML += `<p style="color:${cor}">${status}</p>`;
-
-            if (freezer == freezer_selected) {
-                toogleShadow(3, registro);
-                mudarCoresGrafico(cor);
-            }
-
-            ultimo_registro[2].registro = registro;
-
-            registro > 6 ? alert("Freezer 3 em temperatura critica !!") : '';
-        } else if (freezer == 4) {
-            freezer4.style.borderColor = cor;
-            img4.src = `img/icons/freezer-${status.toLowerCase()}.png`;
-            status4.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
-            status4.innerHTML += `<p style="color:${cor}">${status}</p>`;
-
-            if (freezer == freezer_selected) {
-                toogleShadow(4, registro);
-                mudarCoresGrafico(cor);
-            }
-
-            ultimo_registro[3].registro = registro;
-
-            registro > 6 ? alert("Freezer 4 em temperatura critica !!") : '';
-        } else if (freezer == 5) {
-            freezer5.style.borderColor = cor;
-            img5.src = `img/icons/freezer-${status.toLowerCase()}.png`;
-            status5.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
-            status5.innerHTML += `<p style="color:${cor}">${status}</p>`;
-
-            if (freezer == freezer_selected) {
-                // toogleShadow(5,registro);
-                mudarCoresGrafico(cor);
-            }
-
-            ultimo_registro[4].registro = registro;
-
-            registro > 6 ? alert("Freezer 5 em temperatura critica !!") : '';
-        }
-
-    }
-
-    function changeSensor(freezer) {
-        var length_array = config.data.labels.length;
-
-        var registros2 = [
-            {
-                momento: '00:20:42',
-                leitura: sortearTemperatura()
-            },
-            {
-                momento: '00:20:52',
-                leitura: sortearTemperatura()
-            },
-            {
-                momento: '00:20:02',
-                leitura: sortearTemperatura()
-            },
-            {
-                momento: '00:20:12',
-                leitura: sortearTemperatura()
-            },
-            {
-                momento: '00:20:22',
-                leitura: sortearTemperatura()
-            },
-            {
-                momento: '00:20:32',
-                leitura: sortearTemperatura()
-            },
-            {
-                momento: '00:20:42',
-                leitura: ultimo_registro[freezer].registro
-            }
-        ];
+    //             }
+    //         }
 
 
-        config.data.labels.splice(0, length_array);
-        config.data.datasets[0].data = [];
 
-        var contador = 0;
+    //         // agendar a chamada da mesma função para daqui a 7 segundos
+    //         receberNovasLeituras();
 
-        // registros.length é a quantidade de itens em "registros"
-        while (contador < registros2.length) {
-            config.data.labels.push(registros2[contador].momento);  // incluir um novo momento
-            config.data.datasets[0].data.push(registros2[contador].leitura);  // incluir uma nova leitura
+    //         // Atualiza o gráfico
+    //         window.graficoLinha.update();
 
-            contador++;
-        }
+    //     }, 2000); // 7000 ms -> 7 segundos
+    // }
 
-        if (ultimo_registro[freezer].registro < 0) {
+    // function sortearFreezer(freezer, registro, cor, status) {
+    //     var freezer1 = document.getElementById('freezer1');
+    //     var freezer2 = document.getElementById('freezer2');
+    //     var freezer3 = document.getElementById('freezer3');
+    //     var freezer4 = document.getElementById('freezer4');
+    //     var freezer5 = document.getElementById('freezer5');
 
-        }
+    //     var img1 = document.getElementById('freezer1-img');
+    //     var img2 = document.getElementById('freezer2-img');
+    //     var img3 = document.getElementById('freezer3-img');
+    //     var img4 = document.getElementById('freezer4-img');
+    //     var img5 = document.getElementById('freezer5-img');
 
-        window.graficoLinha.update();
-    }
+    //     var status1 = document.getElementById('status-freezer1');
+    //     var status2 = document.getElementById('status-freezer2');
+    //     var status3 = document.getElementById('status-freezer3');
+    //     var status4 = document.getElementById('status-freezer4');
+    //     var status5 = document.getElementById('status-freezer5');
+
+    //     if (freezer == 1) {
+    //         freezer1.style.borderColor = cor;
+    //         img1.src = `img/icons/freezer-${status.toLowerCase()}.png`;
+    //         status1.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
+    //         status1.innerHTML += `<p style="color:${cor}">${status}</p>`;
+
+    //         if (freezer == freezer_selected) {
+    //             toogleShadow(1, registro);
+    //             mudarCoresGrafico(cor);
+    //         }
+
+    //         ultimo_registro[0].registro = registro;
+
+    //         registro > 6 ? alert("Freezer 1 em temperatura critica !!") : '';
+    //     } else if (freezer == 2) {
+    //         freezer2.style.borderColor = cor;
+    //         img2.src = `img/icons/freezer-${status.toLowerCase()}.png`;
+    //         status2.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
+    //         status2.innerHTML += `<p style="color:${cor}">${status}</p>`;
+
+    //         if (freezer == freezer_selected) {
+    //             toogleShadow(2, registro);
+    //             mudarCoresGrafico(cor);
+    //         }
+
+    //         ultimo_registro[1].registro = registro;
+
+    //         registro > 6 ? alert("Freezer 2 em temperatura critica !!") : '';
+    //     } else if (freezer == 3) {
+    //         freezer3.style.borderColor = cor;
+    //         img3.src = `img/icons/freezer-${status.toLowerCase()}.png`;
+    //         status3.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
+    //         status3.innerHTML += `<p style="color:${cor}">${status}</p>`;
+
+    //         if (freezer == freezer_selected) {
+    //             toogleShadow(3, registro);
+    //             mudarCoresGrafico(cor);
+    //         }
+
+    //         ultimo_registro[2].registro = registro;
+
+    //         registro > 6 ? alert("Freezer 3 em temperatura critica !!") : '';
+    //     } else if (freezer == 4) {
+    //         freezer4.style.borderColor = cor;
+    //         img4.src = `img/icons/freezer-${status.toLowerCase()}.png`;
+    //         status4.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
+    //         status4.innerHTML += `<p style="color:${cor}">${status}</p>`;
+
+    //         if (freezer == freezer_selected) {
+    //             toogleShadow(4, registro);
+    //             mudarCoresGrafico(cor);
+    //         }
+
+    //         ultimo_registro[3].registro = registro;
+
+    //         registro > 6 ? alert("Freezer 4 em temperatura critica !!") : '';
+    //     } else if (freezer == 5) {
+    //         freezer5.style.borderColor = cor;
+    //         img5.src = `img/icons/freezer-${status.toLowerCase()}.png`;
+    //         status5.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
+    //         status5.innerHTML += `<p style="color:${cor}">${status}</p>`;
+
+    //         if (freezer == freezer_selected) {
+    //             // toogleShadow(5,registro);
+    //             mudarCoresGrafico(cor);
+    //         }
+
+    //         ultimo_registro[4].registro = registro;
+
+    //         registro > 6 ? alert("Freezer 5 em temperatura critica !!") : '';
+    //     }
+
+    // }
+
+    // function changeSensor(freezer) {
+    //     var length_array = config.data.labels.length;
+
+    //     var registros2 = [
+    //         {
+    //             momento: '00:20:42',
+    //             leitura: sortearTemperatura()
+    //         },
+    //         {
+    //             momento: '00:20:52',
+    //             leitura: sortearTemperatura()
+    //         },
+    //         {
+    //             momento: '00:20:02',
+    //             leitura: sortearTemperatura()
+    //         },
+    //         {
+    //             momento: '00:20:12',
+    //             leitura: sortearTemperatura()
+    //         },
+    //         {
+    //             momento: '00:20:22',
+    //             leitura: sortearTemperatura()
+    //         },
+    //         {
+    //             momento: '00:20:32',
+    //             leitura: sortearTemperatura()
+    //         },
+    //         {
+    //             momento: '00:20:42',
+    //             leitura: ultimo_registro[freezer].registro
+    //         }
+    //     ];
+
+
+    //     config.data.labels.splice(0, length_array);
+    //     config.data.datasets[0].data = [];
+
+    //     var contador = 0;
+
+    //     // registros.length é a quantidade de itens em "registros"
+    //     while (contador < registros2.length) {
+    //         config.data.labels.push(registros2[contador].momento);  // incluir um novo momento
+    //         config.data.datasets[0].data.push(registros2[contador].leitura);  // incluir uma nova leitura
+
+    //         contador++;
+    //     }
+
+    //     if (ultimo_registro[freezer].registro < 0) {
+
+    //     }
+
+    //     window.graficoLinha.update();
+    // }
 
     function plotarGrafico() {
         // chamar os 7 últimos registros de leitura
-        recuperarDadosIniciais();
+        // recuperarDadosIniciais();
 
         // criação do gráfico na página
         var ctx = document.getElementById('c_grafico').getContext('2d');
         window.graficoLinha = new Chart(ctx, config);
 
         // função que agenda a recuperação da última leitura para daqui a 7 segundos
-        receberNovasLeituras();
+        // receberNovasLeituras();
     }
 
     // indicando que a função "plotarGrafico" será invocada assim que a página carregar

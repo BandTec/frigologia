@@ -4,7 +4,7 @@ var sequelize = require('../models').sequelize;
 var Leitura = require('../models').Leitura;
 
 /* Recuperar as últimas N leituras */
-router.get('/ultimas', function(req, res, next) {
+router.get('/freezers', function(req, res, next) {
 	
 	// quantas são as últimas leituras que quer? 8 está bom?
 	// const limite_linhas = 7;
@@ -13,8 +13,36 @@ router.get('/ultimas', function(req, res, next) {
 	
 	// const instrucaoSql = `select idDados, temp, diames, horario, fkSensor from dados where fkSensor = ${idsensor} order by idDados desc`;
 
-	const instrucaoSql = `select distinct idFreezer, idSensor from freezer inner join sensor on fkFreezer = idFreezer order by idFreezer desc;
-`;
+	const instrucaoSql = `select distinct idFreezer, idSensor from freezer inner join sensor on fkFreezer = idFreezer order by idFreezer desc`;
+
+	sequelize.query(instrucaoSql, {
+		model: Leitura,
+		mapToModel: true 
+	  })
+	  .then(resultado => {
+			console.log(`Encontrados: ${resultado.length}`);
+			res.json(resultado);
+	  }).catch(erro => {
+			console.error(erro);
+			res.status(500).send(erro.message);
+	  });
+});
+
+/* Recuperar as últimas N leituras */
+router.get('/ultimas-leituras/:idfreezer', function(req, res, next) {
+	
+	// quantas são as últimas leituras que quer? 8 está bom?
+	const limite_linhas = 6;
+
+	var idfreezer = req.params.idfreezer;
+	// var idsensor = req.params.idsensor;
+
+	console.log(`Recuperando as ultimas ${limite_linhas} leituras`);
+	
+	const instrucaoSql = `select top ${limite_linhas} idFreezer, idSensor, idDados, temp, diames, horario, fkEstabelecimento from dados 
+	inner join sensor on idSensor = fkSensor 
+	inner join freezer on fkFreezer = idFreezer
+	where idFreezer = ${idfreezer}`;
 
 	sequelize.query(instrucaoSql, {
 		model: Leitura,
