@@ -25,19 +25,17 @@ function abrir() {
 function fechar() {
     form.style.display = '1';
     popup.style.opacity = '0';
-    popup2.style.opacity = '0';
     setTimeout(() => {
         popup.style.display = 'none';
-        popup2.style.display = 'none';
         form.style.display = 'block';
     }, 200);
 }
 function cadastro() {
-    popup.style.display = 'none';
-    popup2.style.display = 'block';
+    form.style.opacity = '1';
+    popup.style.display = '0';
     setTimeout(() => {
-        popup2.style.opacity = '1';
-        popup.style.display = '0';
+        popup.style.display = 'none';
+        form.style.display = 'block';
     }, 200);
     
 }
