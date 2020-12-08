@@ -7,7 +7,7 @@
     <script src="https://kit.fontawesome.com/48b24e7021.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/home/style.css">
+    <link rel="stylesheet" href="css/solicitacoes/style.css">
     <title>Solicitações</title>
 </head>
 
@@ -55,7 +55,55 @@
         </div>
     </header>
 
+    <section class="solicitacao">
+        <div class="container">
+            <h2>Solicitações</h2>
+            <p>Para solicitar reparos ou novos sensores, solicite por essa pagina, enviando um email padronizado.</p>
+
+            <div class="solicitar">
+                <select name="solicitacao" id="solicitacao" onchange="solicitar()">
+                    <option value="0" selected disabled>Nenhuma solicitação</option>
+                    <option value="1">Solicitar suporte técnico</option>
+                    <option value="2">Solicitar instalação</option>
+                    <option value="3">Solicitar cancelamento</option>
+                </select>
+
+                <a class="disabled" id="disabled">Solicitar</a>
+                <a href="mailto:p.frigologia@gmail.com?subject=Solicitação de suporte tecnico &amp;body=Olá,%0D%0A%0D%0AGostaria de solicitar um técnico para pois estou com problemas na minha aplicação.%0D%0A%0D%0A,%0D%0AEstabelecimento:."
+                 class="actived" id="suporte">Solicitar</a>
+
+                <a href="mailto:p.frigologia@gmail.com?subject=Solicitação Instalação &amp;body=Olá,%0D%0A%0D%0AGostaria de solicitar a instalação de mais sensores no meu estabelecimento.%0D%0A%0D%0A,%0D%0AEstabelecimento:."
+                 class="actived" id="install">Solicitar</a>
+
+                <a href="mailto:p.frigologia@gmail.com?subject=Solicitação cancelamento &amp;body=Olá,%0D%0A%0D%0AGostaria de solicitar o cancelamento do serviço.%0D%0A%0D%0A,%0D%0AEstabelecimento:."
+                 class="actived" id="cancel">Solicitar</a>
+            </div>
+        </div>
+    </section>
+
 </body>
 
 </html>
 <script src="js/header/functions.js"></script>
+
+<script>
+    function solicitar() {
+        if(Number(solicitacao.value) == 1) {
+            disabled.style.display = 'none';
+            install.style.display = 'none';
+            cancel.style.display = 'none';
+            suporte.style.display = 'flex';
+        } else if(Number(solicitacao.value) == 2) {
+            disabled.style.display = 'none';
+            cancel.style.display = 'none';
+            suporte.style.display = 'none';
+            install.style.display = 'flex';
+        } else if(Number(solicitacao.value) == 3) {
+            disabled.style.display = 'none';
+            install.style.display = 'none';
+            suporte.style.display = 'none';
+            cancel.style.display = 'flex';
+            
+        }
+    }
+</script>
