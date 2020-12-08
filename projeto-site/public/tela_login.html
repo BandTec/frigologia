@@ -40,7 +40,7 @@
 
 			<h2>Cadastro de estabelecimento</h2>
 			<div id="div-img"><img src="img/frigologo.png" id="img" alt=""></div>
-			<form method="POST" action="/estabelecimento/cadastrar">
+			<form method="POST" onsubmit="return cadastroEstabelecimento()" id="form_cadastro" >
 				<input type="text" placeholder="Nome do estabelecimento" required minlength="5"
 					name="nomeEstabelecimento" id="nome" />
 				<p>Categoria</p>
@@ -53,7 +53,7 @@
 
 				</select> <br><br>
 
-				<input type="text" placeholder="CNPJ" required minlength="5" name="cnpj" id="cnpj" />
+				<input type="number" placeholder="CNPJ" required minlength="5" name="cnpj" id="cnpj" />
 				<input type="text" placeholder="Rua" required minlength="5" name="rua" id="rua" />
 				<input type="number" placeholder="Numero" required minlength="5" name="numero" id="num" />
 
@@ -86,6 +86,28 @@
 			if (resposta.ok) {
 				sessionStorage.setItem('acesso', true);
 				window.location.href = '/Dashboard/index.html';
+			} else {
+
+				console.log('Erro de login!');
+
+				resposta.text().then(texto => {
+					console.error(texto);
+				});
+			}
+		});
+
+		return false;
+	}
+
+	function cadastroEstabelecimento() {
+		var formulario = new URLSearchParams(new FormData(form_cadastro));
+		fetch("/estabelecimento/cadastrar", {
+			method: "POST",
+			body: formulario
+		}).then(resposta => {
+
+			if (resposta.ok) {
+				window.location.href = 'aviso_cadastro.html';
 			} else {
 
 				console.log('Erro de login!');
