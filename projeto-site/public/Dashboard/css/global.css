@@ -11,10 +11,20 @@
     --cor-bg: #f6f7fb
 }
 
+body {
+    background-color: #f6f7fb;
+}
+
 .container {
     width: 90%;
     margin: 0 auto;
     display: flex;
+    background-color: ;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
 }
 
 header {
@@ -54,7 +64,13 @@ header div.container div.options > img:first-child{
     margin-bottom: 20px;
 }
 
-header div.container div.options div.item {
+header div.container div.options a {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+header div.container div.options a div.item {
     width: 40px;
     height: 40px;
     margin-top: 10px;
@@ -63,7 +79,7 @@ header div.container div.options div.item {
     justify-content: center;
 }
 
-header div.container div.options div.item.actived {
+header div.container div.options a div.item.actived {
     margin-bottom: 5px;
     border-radius: 50%;
     box-shadow: 1px 1px 5px var(--cor-status);

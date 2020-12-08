@@ -8,7 +8,7 @@
     <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
     <script src="https://kit.fontawesome.com/48b24e7021.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="css/global.css"> -->
+    <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/styleperfil.css">
     <title>Perfil</title>
 </head>
@@ -28,31 +28,38 @@
             <div class="options">
                 <img src="img/frigologo.png">
 
-                <div class="item actived">
-                    <a href="index.html"><img src="img/icons/bar-chart-black.svg" id="actived"></a>
-                </div>
-                <span id="span_actived">Home</span>
+                <a href="index.html">
+                    <div title="Home" class="item">
+                        <img src="img/icons/bar-chart-black.svg">
+                    </div>
+                    <span>Home</span>
+                </a>
 
-                <div class="item">
-                    <img src="img/icons/addchart-black.svg">
-                </div>
-                <span>New Freezer</span>
+                <a href="solicitacoes.html">
+                    <div title="Solicitações" class="item">
+                        <img src="img/icons/addchart-black.svg">
+                    </div>
+                    <span>Chamado</span>
+                </a>
             </div>
 
             <div class="perfil">
                 <div class="options-perfil" id="card_option" style="display: none;">
-                    <div class="item-perfil">
-                        <img src="img/frigologo.png">
-                        <a href="perfil.html"><span id="usuario">Usuario</span></a>
-                    </div>
-
-                    <div class="item-perfil">
-                        <img src="img/icons/power.svg">
-                        <span>Power</span>
-                    </div>
+                    <a id="usuario" href="perfil.html">
+                        <div title="Usuario" class="item-perfil">
+                            <img src="img/frigologo.png">
+                            <span>Usuario</span>
+                        </div>
+                    </a>
+                    <a href="tela_login.html">
+                        <div title="Logout" class="item-perfil">
+                            <img src="img/icons/power.svg">
+                            <span>Logout</span>
+                        </div>
+                    </a>
                 </div>
 
-                <div class="img-perfil" id="user_option">
+                <div title="Opções" class="img-perfil" id="user_option">
                     <img src="img/icons/users.svg">
                 </div>
             </div>
