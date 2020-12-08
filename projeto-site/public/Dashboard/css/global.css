@@ -68,6 +68,7 @@ header div.container div.options div.item.actived {
     border-radius: 50%;
     box-shadow: 1px 1px 5px var(--cor-status);
     background-color: var(--cor-status);
+    cursor: pointer;
 }
 
 header div.container div.options span {
@@ -127,7 +128,10 @@ header div.container div.perfil img {
 }
 
 #usuario {
-    display: inline-block;
+
+    /* display: inline-block; */
     color: black;
+    text-decoration: none;
 }
+
 /* fim perfil */
