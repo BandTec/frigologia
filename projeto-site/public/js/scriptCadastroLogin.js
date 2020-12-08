@@ -38,7 +38,7 @@ function cadastro() {
         alert("Preencha todos os campos!")
 
     } else {
-        mens.innerHTML = `Estabeleciemento cadastrado com sucesso, nossa equipe entrará em contato em breve!`
+        window.location.href = "../aviso_cadastro.html";
     }
     
     // form.style.opacity = '1';
