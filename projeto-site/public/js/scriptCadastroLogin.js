@@ -1,14 +1,3 @@
-function login() {
-
-    if (usuario.value == 'frigologia@gmail.com' && senha.value == 'frigologia') {
-        window.location.href = "../Dashboard/dashboard.html";
-        limpar();
-    } else {
-        alert("Senha ou usuário incorreto!");
-        limpar();
-    }
-
-}
 
 // setTimeout ele executa algo depois que o tempo determinado acabar
 // setTimout = ele pega o id, configura a propriedade style e depois configura a opacidade do style
@@ -33,13 +22,6 @@ function fechar() {
 }
 
 function cadastro() {
-    
-    if (nome.value == '' || cnpj.value == '' || rua.value == '' || num.value == '') {
-        alert("Preencha todos os campos!")
-
-    } else {
-        window.location.href = "../aviso_cadastro.html";
-    }
     
     // form.style.opacity = '1';
     // popup.style.display = '0';
