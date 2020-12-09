@@ -75,47 +75,42 @@ router.get("/luminosity", (request, response, next) => {
 
 });
 
-setInterval(()=> router.get("/sendData", (request, response) => {
+router.get("/sendData", (request, response) => {
   const temperature = ArduinoDataTemp.List[ArduinoDataTemp.List.length - 1];
-  const Humidity = ArduinoDataHumidity.List[ArduinoDataHumidity.List.length - 1];
-  //luminosidade = ArduinoDataLuminosity.List[ArduinoDataLuminosity.List.length -1]
-
-
 
   db.conectar()
     .then(() => {
-      var agora = new Date();
-      var hora = agora.getHours();
-      var minuto = agora.getMinutes();
-      var segundo = agora.getSeconds();
-      var momento = `${hora > 9 ? '' : '0'}${hora}:${minuto > 9 ? '' : '0'}${minuto}:${segundo > 9 ? '' : '0'}${segundo}`;
+      setInterval(() => {
+        var agora = new Date();
+        var hora = agora.getHours();
+        var minuto = agora.getMinutes();
+        var segundo = agora.getSeconds();
+        var momento = `${hora > 9 ? '' : '0'}${hora}:${minuto > 9 ? '' : '0'}${minuto}:${segundo > 9 ? '' : '0'}${segundo}`;
 
 
-      var dia = agora.getDate();
+        var dia = agora.getDate();
 
-      var mes = agora.getMonth() + 1;
+        var mes = agora.getMonth() + 1;
 
-      var diaMes = `${dia}/${mes}`;
-      for (fk = 6; fk <= 10; fk++) {
-        let random = sensores.lm35().toFixed(2);
-        const sql = `
+        var diaMes = `${dia}/${mes}`;
+        for (fk = 6; fk <= 10; fk++) {
+          let random = sensores.lm35().toFixed(2);
+          const sql = `
                 INSERT into dados (temp, diames, horario, fkSensor)
                 values ('${random}', '${diaMes}', '${momento}','${fk}');`;
-        db.sql.query(sql).then(() => {
-          console.log("Registro inserido com sucesso! \n" + fk);
-        });;
+          db.sql.query(sql).then(() => {
+            console.log("Registro inserido com sucesso! \n" + fk);
+          });
 
-      }
-    }
-    )
+        }
+      }, 5000)
+    })
     .catch((erro) => {
       console.error(`Erro ao tentar registrar aquisição na base: ${erro}`);
     })
 
 
   response.sendStatus(200);
-}),5000);
-
-
+});
 
 module.exports = router;
