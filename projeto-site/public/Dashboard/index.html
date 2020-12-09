@@ -128,6 +128,10 @@
 
     // Função que busca todos os dados de todos os freezers //em ordem de maior temperatura primeiro e insere na tela 
     function buscarFreezers() {
+        // Função para fechar o grafico se ele estiver aberto
+        if (sec_graphic.style.display == 'flex') {
+            closeGraphic();
+        }
         // Rota de buscar dados do banco
         fetch(`/leituras/freezers`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
@@ -253,20 +257,20 @@
         config.data.datasets[0].data = [];
 
         // seta os novos registros vindos do banco
-        for (let i = dados.length - 1; i >= 0; i--) {
+        for (let i = 0; i < dados.length; i++) {
             console.log(i)
             config.data.labels.push(dados[i].horario);  // incluir um novo momento
             config.data.datasets[0].data.push(dados[i].temp);  // incluir uma nova leitura
         }
 
         // muda as cores do grafico de acordo com a faixa de alerta
-        mudarCoresGrafico(validarParaCores(dados[0].temp));
+        mudarCoresGrafico(validarParaCores(dados[dados.length - 1].temp));
 
         // atualiza o grafico
         window.graficoLinha.update();
 
         // Seleciona Adiciona a shadow no freezer clicado
-        selecionarFreezer(dados);
+        selecionarFreezer(dados[dados.length - 1]);
     }
 
     // Insere os registros na tela
@@ -275,7 +279,7 @@
         document.getElementById(`dados`).innerHTML = '';
 
         // insere novos registros
-        for (let i = 0; i < dados.length; i++) {
+        for (let i = dados.length - 1; i >= 0; i--) {
             document.getElementById(`dados`).innerHTML += `
                 <div class="dado">
                     <span>${dados[i].idDados}</span>
@@ -292,13 +296,14 @@
         // limpa a shadow dos botoes
         limparSelecaoFreezers();
 
+        console.log(`asdasdhashd ${dados.temp}`)
         // adiciona os textos nos titulos selecionados 
-        id_freezer_selecionado.innerText = `Freezer ${dados[0].idFreezer} selecionado`;
-        id_title_freezer.innerText = `Freezer ${dados[0].idFreezer}`;
-        id_registros_freezer.innerText = `Freezer ${dados[0].idFreezer}`;
+        id_freezer_selecionado.innerText = `Freezer ${dados.idFreezer} selecionado`;
+        id_title_freezer.innerText = `Freezer ${dados.idFreezer}`;
+        id_registros_freezer.innerText = `Freezer ${dados.idFreezer}`;
 
         // Adiciona a sombra de  acordo com a faixa de alertas
-        document.getElementById(`freezer${dados[0].idFreezer}`).style.boxShadow = `1px 1px 25px ${validarParaCores(dados[0].temp)}`;
+        document.getElementById(`freezer${dados.idFreezer}`).style.boxShadow = `1px 1px 25px ${validarParaCores(dados.temp)}`;
 
     }
 
@@ -347,7 +352,7 @@
     }
 
     // Função de fechar o grafico
-    document.getElementById('id_close').onclick = function () {
+    function closeGraphic() {
         // Fecha o grafico
         sec_graphic.style.animationName = 'sideoff';
         setTimeout(() => sec_graphic.style.display = 'none', 1000)
@@ -356,6 +361,9 @@
         id_close.style.display = 'none';
         // Limpa a seleção dos freezers
         limparSelecaoFreezers();
+    }
+    document.getElementById('id_close').onclick = function () {
+        closeGraphic();
     }
 
     var config = {

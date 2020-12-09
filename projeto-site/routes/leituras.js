@@ -42,7 +42,8 @@ router.get('/ultimas-leituras/:idfreezer', function(req, res, next) {
 	const instrucaoSql = `select top ${limite_linhas} idFreezer, idSensor, idDados, temp, diames, horario, fkEstabelecimento from dados 
 	inner join sensor on idSensor = fkSensor 
 	inner join freezer on fkFreezer = idFreezer
-	where idFreezer = ${idfreezer}`;
+	where idFreezer = ${idfreezer}
+	order by dados.idDados desc`;
 
 	sequelize.query(instrucaoSql, {
 		model: Leitura,
