@@ -148,6 +148,21 @@ section.dashboard div.container section.freezers div.title div {
     align-items: center;
 }
 
+section.dashboard div.container section.freezers div#div_gif {
+    width: 100px;
+    margin-top: 200px;
+    align-self: center;
+}
+
+section.dashboard div.container section.freezers div#div_gif img {
+    width: 100%;
+    border-radius: 25px;
+}
+
+section.dashboard div.container section.freezers div#div_gif p {
+    margin-top: 10px;
+}
+
 section.dashboard div.container section.freezers div.cont-freezers {
     width: 100%;
     display: flex;

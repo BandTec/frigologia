@@ -115,7 +115,7 @@
     window.onload = selecionar('bar-chart');
     window.onload = sessao();
     window.onload = buscarFreezers();
-    setInterval(() => buscarFreezers(),10000);
+    setInterval(() => buscarFreezers(), 10000);
 
     let ids_freezers = [];
 
@@ -148,25 +148,29 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
-
     }
 
     // Função responsável por trazer o ultimo registro do banco de dados, utilizando as rotas do node 
     // Função recebe um parametro que é referente a fk do sensor cadastrado no banco
-    async function buscarDadosParaCard(params) {
+    function buscarDadosParaCard(params) {
         // Limpa a div onde os freezeres vão aparecer
         document.getElementById('cont-freezers').innerHTML = '';
+
+        // Limpa o vetor dos ids, caso ele já possua algum dado
+        if (ids_freezers.length > 0) {
+            ids_freezers.splice(0, ids_freezers.length);
+        }
 
         // For para percorrer todo o JSON com os freezer e sensores 
         // Chama a função com a rota para buscar os dados de cada freezer com o seu sensor
         for (let i = 0; i < params.length; i++) {
-            await buscarDadoSensor(params[i].idFreezer, params[i].idSensor)
+            buscarDadoSensor(params[i].idFreezer, params[i].idSensor)
         }
     }
 
     // Busca o ultimo registro de cada freezer
-    async function buscarDadoSensor(idFreezer, idSensor) {
-        await fetch(`/leituras/ultima-leitura/${idFreezer}${idSensor}`, { cache: 'no-store' }).then(function (response) {
+    function buscarDadoSensor(idFreezer, idSensor) {
+        fetch(`/leituras/ultima-leitura/${idFreezer}${idSensor}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -176,7 +180,6 @@
                     ids_freezers.push(resposta[0].idFreezer);
                     // Função que insere os cards dos freezers na tela
                     inserirCard(resposta);
-
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -202,11 +205,6 @@
             </div>
         `;
 
-        // Adiciona a sombra no primeiro freezer
-        // if (ids_freezers.length == 1) {
-        //     document.getElementById(`freezer${ids_freezers[0]}`).style.boxShadow = `1px 1px 25px ${validarParaCores(resposta[0].temp)}`;
-        // }
-
         // Adicionar a borda do card de acordo com o status dele 
         document.getElementById(`freezer${resposta[0].idFreezer}`).style.borderColor = `${validarParaCores(resposta[0].temp)}`;
 
@@ -221,7 +219,10 @@
                 sec_graphic.style.display = 'flex';
                 sec_graphic.style.animationName = 'sidein';
 
+                // chama a rota para buscar os dados do sensor específicado
                 buscarDadosPorSensor(ids_freezers[i]);
+                
+                // faz aparecer o icone para fechar o grafico
                 id_close.style.display = 'block';
             }
         }
@@ -296,7 +297,6 @@
         // limpa a shadow dos botoes
         limparSelecaoFreezers();
 
-        console.log(`asdasdhashd ${dados.temp}`)
         // adiciona os textos nos titulos selecionados 
         id_freezer_selecionado.innerText = `Freezer ${dados.idFreezer} selecionado`;
         id_title_freezer.innerText = `Freezer ${dados.idFreezer}`;
@@ -316,7 +316,7 @@
 
         // limpa a seleção dos cards
         for (let i = 0; i < ids_freezers.length; i++) {
-            document.getElementById(`freezer${ids_freezers[i]}`).style.boxShadow = `none`;
+            document.getElementById(`freezer${ids_freezers[i]}`).style.boxShadow = 'none';
         }
     }
 
@@ -362,10 +362,14 @@
         // Limpa a seleção dos freezers
         limparSelecaoFreezers();
     }
+
+    // clicar no icone de fechar o gráfico executa essa função
     document.getElementById('id_close').onclick = function () {
+        // chamada da função de fechar o gráfico
         closeGraphic();
     }
 
+    // configuração do gráfico do chartJS
     var config = {
         type: 'line',
         data: {
@@ -411,279 +415,11 @@
         }
     };
 
-    // // esse "sortearTemperatura()" será desnecessário quando usarmos o backend futuramente
-    // function sortearTemperatura() {
-    //     var limiteMin = -2;
-    //     var limiteMax = 8;
-    //     var minimoAbsoluto = Math.abs(limiteMin);
-    //     var random = (Math.random() * (minimoAbsoluto + limiteMax) - minimoAbsoluto).toFixed(1);
-    //     return random;
-    // }
-
-    // function recuperarDadosIniciais() {
-
-    //     // esse "registros" será recuperado do backend futuramente
-    //     var registros = [
-    //         {
-    //             momento: '00:03:42',
-    //             leitura: sortearTemperatura()
-    //         },
-    //         {
-    //             momento: '00:03:52',
-    //             leitura: sortearTemperatura()
-    //         },
-    //         {
-    //             momento: '00:04:02',
-    //             leitura: sortearTemperatura()
-    //         },
-    //         {
-    //             momento: '00:04:12',
-    //             leitura: sortearTemperatura()
-    //         },
-    //         {
-    //             momento: '00:04:22',
-    //             leitura: sortearTemperatura()
-    //         },
-    //         {
-    //             momento: '00:04:32',
-    //             leitura: sortearTemperatura()
-    //         },
-    //         {
-    //             momento: '00:04:42',
-    //             leitura: sortearTemperatura()
-    //         }
-    //     ];
-
-    //     var contador = 0;
-
-    //     // registros.length é a quantidade de itens em "registros"
-    //     while (contador < registros.length) {
-
-    //         config.data.labels.push(registros[contador].momento);  // incluir um novo momento
-    //         config.data.datasets[0].data.push(registros[contador].leitura);  // incluir uma nova leitura
-
-    //         contador++;
-    //     }
-
-    // }
-
-    // function receberNovasLeituras() {
-    //     setTimeout(() => {
-
-    //         // esses "agora" etc até "momentos" serão desnecessários quando usarmos o backend futuramente
-    //         var agora = new Date();
-    //         var hora = agora.getHours();
-    //         var minuto = agora.getMinutes();
-    //         var segundo = agora.getSeconds();
-    //         var momento = `${hora > 9 ? '' : '0'}${hora}:${minuto > 9 ? '' : '0'}${minuto}:${segundo > 9 ? '' : '0'}${segundo}`;
-
-    //         var random = parseInt(Math.random() * 5);
-
-    //         // esse "novoRegistro" será recuperado do backend futuramente
-    //         var novoRegistro = {
-    //             momento: momento,
-    //             leitura: sortearTemperatura()
-    //         };
-
-    //         // tirando e colocando valores no gráfico
-
-
-    //         if (random == freezer_selected) {
-    //             config.data.labels.shift(); // apagar o primeiro
-    //             config.data.labels.push(novoRegistro.momento); // incluir um novo momento
-    //             config.data.datasets[0].data.shift();  // apagar o primeiro
-    //             config.data.datasets[0].data.push(novoRegistro.leitura); // incluir uma nova leitura                
-
-    //         } {
-
-    //             if (novoRegistro.leitura < 0) {
-
-    //                 sortearFreezer(random, novoRegistro.leitura, '#348899', 'Frio');
-
-    //             } else if (novoRegistro.leitura <= 4) {
-
-    //                 sortearFreezer(random, novoRegistro.leitura, '#37CA33', 'Ideal');
-
-    //             } else if (novoRegistro.leitura <= 6) {
-
-    //                 sortearFreezer(random, novoRegistro.leitura, '#F0C908', 'Quente');
-
-    //             } else if (novoRegistro.leitura > 6) {
-
-    //                 sortearFreezer(random, novoRegistro.leitura, '#af3b39', 'Risco');
-
-    //             }
-    //         }
-
-
-
-    //         // agendar a chamada da mesma função para daqui a 7 segundos
-    //         receberNovasLeituras();
-
-    //         // Atualiza o gráfico
-    //         window.graficoLinha.update();
-
-    //     }, 2000); // 7000 ms -> 7 segundos
-    // }
-
-    // function sortearFreezer(freezer, registro, cor, status) {
-    //     var freezer1 = document.getElementById('freezer1');
-    //     var freezer2 = document.getElementById('freezer2');
-    //     var freezer3 = document.getElementById('freezer3');
-    //     var freezer4 = document.getElementById('freezer4');
-    //     var freezer5 = document.getElementById('freezer5');
-
-    //     var img1 = document.getElementById('freezer1-img');
-    //     var img2 = document.getElementById('freezer2-img');
-    //     var img3 = document.getElementById('freezer3-img');
-    //     var img4 = document.getElementById('freezer4-img');
-    //     var img5 = document.getElementById('freezer5-img');
-
-    //     var status1 = document.getElementById('status-freezer1');
-    //     var status2 = document.getElementById('status-freezer2');
-    //     var status3 = document.getElementById('status-freezer3');
-    //     var status4 = document.getElementById('status-freezer4');
-    //     var status5 = document.getElementById('status-freezer5');
-
-    //     if (freezer == 1) {
-    //         freezer1.style.borderColor = cor;
-    //         img1.src = `img/icons/freezer-${status.toLowerCase()}.png`;
-    //         status1.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
-    //         status1.innerHTML += `<p style="color:${cor}">${status}</p>`;
-
-    //         if (freezer == freezer_selected) {
-    //             toogleShadow(1, registro);
-    //             mudarCoresGrafico(cor);
-    //         }
-
-    //         ultimo_registro[0].registro = registro;
-
-    //         registro > 6 ? alert("Freezer 1 em temperatura critica !!") : '';
-    //     } else if (freezer == 2) {
-    //         freezer2.style.borderColor = cor;
-    //         img2.src = `img/icons/freezer-${status.toLowerCase()}.png`;
-    //         status2.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
-    //         status2.innerHTML += `<p style="color:${cor}">${status}</p>`;
-
-    //         if (freezer == freezer_selected) {
-    //             toogleShadow(2, registro);
-    //             mudarCoresGrafico(cor);
-    //         }
-
-    //         ultimo_registro[1].registro = registro;
-
-    //         registro > 6 ? alert("Freezer 2 em temperatura critica !!") : '';
-    //     } else if (freezer == 3) {
-    //         freezer3.style.borderColor = cor;
-    //         img3.src = `img/icons/freezer-${status.toLowerCase()}.png`;
-    //         status3.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
-    //         status3.innerHTML += `<p style="color:${cor}">${status}</p>`;
-
-    //         if (freezer == freezer_selected) {
-    //             toogleShadow(3, registro);
-    //             mudarCoresGrafico(cor);
-    //         }
-
-    //         ultimo_registro[2].registro = registro;
-
-    //         registro > 6 ? alert("Freezer 3 em temperatura critica !!") : '';
-    //     } else if (freezer == 4) {
-    //         freezer4.style.borderColor = cor;
-    //         img4.src = `img/icons/freezer-${status.toLowerCase()}.png`;
-    //         status4.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
-    //         status4.innerHTML += `<p style="color:${cor}">${status}</p>`;
-
-    //         if (freezer == freezer_selected) {
-    //             toogleShadow(4, registro);
-    //             mudarCoresGrafico(cor);
-    //         }
-
-    //         ultimo_registro[3].registro = registro;
-
-    //         registro > 6 ? alert("Freezer 4 em temperatura critica !!") : '';
-    //     } else if (freezer == 5) {
-    //         freezer5.style.borderColor = cor;
-    //         img5.src = `img/icons/freezer-${status.toLowerCase()}.png`;
-    //         status5.innerHTML = `<h2 style="color:${cor}">${registro}°C</h2>`;
-    //         status5.innerHTML += `<p style="color:${cor}">${status}</p>`;
-
-    //         if (freezer == freezer_selected) {
-    //             // toogleShadow(5,registro);
-    //             mudarCoresGrafico(cor);
-    //         }
-
-    //         ultimo_registro[4].registro = registro;
-
-    //         registro > 6 ? alert("Freezer 5 em temperatura critica !!") : '';
-    //     }
-
-    // }
-
-    // function changeSensor(freezer) {
-    //     var length_array = config.data.labels.length;
-
-    //     var registros2 = [
-    //         {
-    //             momento: '00:20:42',
-    //             leitura: sortearTemperatura()
-    //         },
-    //         {
-    //             momento: '00:20:52',
-    //             leitura: sortearTemperatura()
-    //         },
-    //         {
-    //             momento: '00:20:02',
-    //             leitura: sortearTemperatura()
-    //         },
-    //         {
-    //             momento: '00:20:12',
-    //             leitura: sortearTemperatura()
-    //         },
-    //         {
-    //             momento: '00:20:22',
-    //             leitura: sortearTemperatura()
-    //         },
-    //         {
-    //             momento: '00:20:32',
-    //             leitura: sortearTemperatura()
-    //         },
-    //         {
-    //             momento: '00:20:42',
-    //             leitura: ultimo_registro[freezer].registro
-    //         }
-    //     ];
-
-
-    //     config.data.labels.splice(0, length_array);
-    //     config.data.datasets[0].data = [];
-
-    //     var contador = 0;
-
-    //     // registros.length é a quantidade de itens em "registros"
-    //     while (contador < registros2.length) {
-    //         config.data.labels.push(registros2[contador].momento);  // incluir um novo momento
-    //         config.data.datasets[0].data.push(registros2[contador].leitura);  // incluir uma nova leitura
-
-    //         contador++;
-    //     }
-
-    //     if (ultimo_registro[freezer].registro < 0) {
-
-    //     }
-
-    //     window.graficoLinha.update();
-    // }
-
+    // Função para criar o grafico na tela
     function plotarGrafico() {
-        // chamar os 7 últimos registros de leitura
-        // recuperarDadosIniciais();
-
         // criação do gráfico na página
         var ctx = document.getElementById('c_grafico').getContext('2d');
         window.graficoLinha = new Chart(ctx, config);
-
-        // função que agenda a recuperação da última leitura para daqui a 7 segundos
-        // receberNovasLeituras();
     }
 
     // indicando que a função "plotarGrafico" será invocada assim que a página carregar
