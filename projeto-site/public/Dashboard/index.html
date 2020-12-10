@@ -208,6 +208,10 @@
         // Adicionar a borda do card de acordo com o status dele 
         document.getElementById(`freezer${resposta[0].idFreezer}`).style.borderColor = `${validarParaCores(resposta[0].temp)}`;
 
+        if(resposta[0].temp > 6) {
+            document.getElementById(`freezer${resposta[0].idFreezer}`).style.borderWidth = `3px`;
+        } 
+
         // Adiciona a função de click nos cards
         functionClickCard(resposta);
     }
