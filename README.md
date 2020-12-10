@@ -13,3 +13,4 @@
 [Nosso Site](https://frigologia.azurewebsites.net/)
 <br>
 [Ferramenta de Suporte](https://atendimentofrigologia.freshdesk.com/a/tickets/filters/all_tickets)
+[Diagrama Atendimento](https://frigologia.azurewebsites.net/diagrama.html)
