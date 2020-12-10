@@ -8,4 +8,4 @@
 <br>
 [Planilha de risco]( https://drive.google.com/file/d/1EFss4M7-1H3Zbjj2WxM2H_bS8Mgp6OqX/view?usp=sharing)
 <br>
-
+[Manual de instalação](https://drive.google.com/file/d/1JZHhDVzBfYAyaU0-2Sih3iHnvmh2olNJ/view?usp=sharing)
