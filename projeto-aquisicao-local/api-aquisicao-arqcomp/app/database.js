@@ -1,8 +1,8 @@
 var configuracoes = {
-    server: "dbgrupo08.database.windows.net",
-    user: "frigologia",
+    server: "dbfrigologia.database.windows.net",
+    user: "Frigologia",
     password: "#Gfgrupo8",
-    database: "bd-Grupo08",
+    database: "Frigologia",
     options: {
       encrypt: true,
       enableArithAbort: true,
