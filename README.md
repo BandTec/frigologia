@@ -11,3 +11,5 @@
 [Manual de instalação](https://drive.google.com/file/d/1JZHhDVzBfYAyaU0-2Sih3iHnvmh2olNJ/view?usp=sharing)
 <br>
 [Nosso Site](https://frigologia.azurewebsites.net/)
+<br>
+[Ferramenta de Suporte](https://atendimentofrigologia.freshdesk.com/a/tickets/filters/all_tickets)
