@@ -93,7 +93,7 @@ router.get("/sendData", (request, response) => {
         var mes = agora.getMonth() + 1;
 
         var diaMes = `${dia}/${mes}`;
-        for (fk = 6; fk <= 10; fk++) {
+        for (fk = 1; fk <= 5; fk++) {
           let random = sensores.lm35().toFixed(2);
           const sql = `
                 INSERT into dados (temp, diames, horario, fkSensor)
