@@ -103,7 +103,7 @@ router.get("/sendData", (request, response) => {
           });
 
         }
-      }, 5000)
+      }, 57000)
     })
     .catch((erro) => {
       console.error(`Erro ao tentar registrar aquisição na base: ${erro}`);
